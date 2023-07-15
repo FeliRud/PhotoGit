@@ -13,11 +13,29 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "b4975b64-4a76-4290-b802-4f32786578e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fall",
+                    "type": "Button",
+                    "id": "e3ea327b-fe8c-42eb-9030-03b52f7b866e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
+                    "name": "A/D [Keyboard]",
                     "id": "a414e56c-e52b-46ea-bf95-694a7a4870fa",
                     "path": "1DAxis",
                     "interactions": "",
@@ -48,6 +66,39 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "9232dd39-cc1c-41b7-87cd-7d8549d0e333",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4dd029bb-036b-42a0-a3d1-4dd79a2136f8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cc4b1df-a9fe-4cab-b653-8be9f0baacb7",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Fall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

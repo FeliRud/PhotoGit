@@ -1,4 +1,4 @@
-﻿using Photo.Architecture.Characters.Player;
+﻿using Photo.Architecture.Characters.Sprites.Player;
 using UnityEngine;
 using Zenject;
 
