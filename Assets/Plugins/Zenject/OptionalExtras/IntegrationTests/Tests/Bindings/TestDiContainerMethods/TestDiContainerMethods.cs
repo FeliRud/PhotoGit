@@ -39,6 +39,11 @@ namespace Zenject.Tests.Bindings
             yield break;
         }
 
+        private void SkipInstall()
+        {
+            throw new System.NotImplementedException();
+        }
+
         [UnityTest]
         public IEnumerator TestInstantiateComponentArgs()
         {
