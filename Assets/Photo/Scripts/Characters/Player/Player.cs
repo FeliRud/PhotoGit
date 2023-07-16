@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Photo.Architecture.Characters.Sprites.Player
+namespace Photo
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
+        public event Action OnDie;
+        
         private const int LAYER_PLAYER = 7;
         private const int LAYER_BASE_PLATFORM = 8;
         private const int LAYER_MOVING_PLATFORM = 9;
-        
+
+        [SerializeField] private PlayerInteraction _interaction;
         [SerializeField] private Transform _groundChecker;
         [SerializeField] private LayerMask _groundLayer;
         
         private PlayerInput _playerInput;
         private Rigidbody2D _rigidbody2D;
         private PlayerCharacteristics _characteristics;
+        private Lever _lever;
         
         [Inject]
         private void Construct(PlayerCharacteristics characteristics)
@@ -27,18 +31,38 @@ namespace Photo.Architecture.Characters.Sprites.Player
             Init();
         }
 
-        private void Init()
+        private void OnDisable()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-            _playerInput = new PlayerInput();
-            _playerInput.Enable();
-            _playerInput.Player.Jump.performed += OnJump;
-            _playerInput.Player.Fall.performed += OnFall;
+            _interaction.OnLeverChanged -= OnLeverChanged;
+            _playerInput.Player.Jump.performed -= OnJump;
+            _playerInput.Player.Fall.performed -= OnFall;
+            _playerInput.Player.Use.performed -= OnUse;
         }
 
         private void FixedUpdate()
         {
             Move();
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+        }
+        
+        public void Die()
+        {
+            OnDie?.Invoke();
+        }
+        
+        private void Init()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            _interaction.OnLeverChanged += OnLeverChanged;
+            _playerInput = new PlayerInput();
+            _playerInput.Enable();
+            _playerInput.Player.Jump.performed += OnJump;
+            _playerInput.Player.Fall.performed += OnFall;
+            _playerInput.Player.Use.performed += OnUse;
         }
 
         private void Move()
@@ -66,6 +90,17 @@ namespace Photo.Architecture.Characters.Sprites.Player
             if (isGround)
                 StartCoroutine(FallRoutine());
         }
+        
+        private void OnLeverChanged(Lever lever)
+        {
+            _lever = lever;
+        }
+        
+        private void OnUse(InputAction.CallbackContext obj)
+        {
+            if (_lever != null)
+                _lever.Use();
+        }
 
         private IEnumerator FallRoutine()
         {
@@ -74,15 +109,6 @@ namespace Photo.Architecture.Characters.Sprites.Player
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVING_PLATFORM, false);
-        }
-        
-        private void OnDrawGizmos()
-        {
-            if (_groundChecker != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(_groundChecker.position, 0.1f);
-            }
         }
     }
 }

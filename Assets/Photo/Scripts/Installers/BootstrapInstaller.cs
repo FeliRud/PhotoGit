@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Photo.Architecture.Installer
+namespace Photo
 {
     public class BootstrapInstaller : MonoInstaller
     {

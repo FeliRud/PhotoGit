@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Photo.Architecture.Characters.Sprites.Player
+namespace Photo
 {
     [CreateAssetMenu(fileName = "PlayerCharacteristics", menuName = "Settings/PlayerCharacteristics", order = 51)]
     public class PlayerCharacteristics : ScriptableObject

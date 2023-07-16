@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Photo.Architecture.Platforms.Scripts
+namespace Photo
 {
     public class MovingPlatform : MonoBehaviour
     {
