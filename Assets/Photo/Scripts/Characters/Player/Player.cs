@@ -13,8 +13,12 @@ namespace Photo
         
         private const int LAYER_PLAYER = 7;
         private const int LAYER_BASE_PLATFORM = 8;
-        private const int LAYER_MOVING_PLATFORM = 9;
+        private const int LAYER_MOVE_PLATFORM = 9;
 
+        private const string ANIMATION_RUN = "Move";
+        private const string ANIMATION_JUMP = "Jump";
+
+        [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _interaction;
         [SerializeField] private Transform _groundChecker;
         [SerializeField] private LayerMask _groundLayer;
@@ -70,6 +74,21 @@ namespace Photo
             float value = _playerInput.Player.Move.ReadValue<float>();
             Vector2 velocity = new Vector2(value * _characteristics.Speed,  _rigidbody2D.velocity.y);
             _rigidbody2D.velocity = velocity;
+
+            if (value != 0)
+            {
+                transform.localScale = value >= 0 ? new Vector3(1, transform.localScale.y, transform.localScale.y) :
+                    new Vector3(-1, transform.localScale.y, transform.localScale.y);
+            }
+            
+            if (!_animator.GetBool(ANIMATION_RUN) && velocity.x != 0)
+            {
+                _animator.SetBool(ANIMATION_RUN, true);
+            }
+            else if (velocity.x == 0)
+            {
+                _animator.SetBool(ANIMATION_RUN, false);
+            }
         }
 
         private void OnJump(InputAction.CallbackContext obj)
@@ -78,6 +97,7 @@ namespace Photo
             
             if (isGround)
             {
+                _animator.SetBool(ANIMATION_JUMP, true);
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.AddForce(Vector2.up * _characteristics.JumpForce, ForceMode2D.Impulse);
             }
@@ -105,10 +125,8 @@ namespace Photo
         private IEnumerator FallRoutine()
         {
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, true);
-            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVING_PLATFORM, true);
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
-            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVING_PLATFORM, false);
         }
     }
 }
