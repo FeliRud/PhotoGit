@@ -81,7 +81,7 @@ namespace Photo
                     new Vector3(-1, transform.localScale.y, transform.localScale.y);
             }
             
-            if (!_animator.GetBool(ANIMATION_RUN) && velocity.x != 0)
+            if (!_animator.GetBool(ANIMATION_JUMP) && !_animator.GetBool(ANIMATION_RUN) && velocity.x != 0)
             {
                 _animator.SetBool(ANIMATION_RUN, true);
             }
