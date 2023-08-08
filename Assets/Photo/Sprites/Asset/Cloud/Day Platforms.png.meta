@@ -183,9 +183,9 @@ TextureImporter:
       name: Day Platforms_2
       rect:
         serializedVersion: 2
-        x: 2174
+        x: 2161
         y: 111
-        width: 436
+        width: 453
         height: 273
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -206,7 +206,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2782
         y: 111
-        width: 416
+        width: 435
         height: 273
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -225,9 +225,9 @@ TextureImporter:
       name: Day Platforms_4
       rect:
         serializedVersion: 2
-        x: 3522
-        y: 109
-        width: 378
+        x: 3478
+        y: 110
+        width: 422
         height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
