@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Photo
 {
-    public class BootstrapLevelSee : MonoInstaller
+    public class BootstrapLevelClouds : MonoInstaller
     {
         [SerializeField] private Player _player;
         [SerializeField] private SpawnPoint _spawnPoint;

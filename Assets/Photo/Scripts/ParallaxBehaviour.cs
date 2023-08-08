@@ -1,32 +1,28 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Photo
 {
     public class ParallaxBehaviour : MonoBehaviour
     {
-        [SerializeField] private Transform _followTarget;
-        [SerializeField, Range(0f, 1f)] private float _strength = 0.1f;
-        [SerializeField] private bool _disableVertical;
-
-        private Vector3 _targetPreviousPosition;
+        [SerializeField] private Vector2 _parallaxStrength;
+        
+        private Transform _mainCameraTransform;
+        private Vector3 _lastCameraPosition;
 
         private void Start()
         {
-            if (!_followTarget)
-                _followTarget = Camera.main.transform;
-
-            _targetPreviousPosition = _followTarget.position;
+            _mainCameraTransform = Camera.main.transform;
+            _lastCameraPosition = _mainCameraTransform.position;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
-            var delta = _followTarget.position - _targetPreviousPosition;
-
-            if (_disableVertical)
-                delta.y = 0;
-
-            _targetPreviousPosition = _followTarget.position;
-            transform.position += delta * _strength;
+            Vector3 deltaMovement = _mainCameraTransform.position - _lastCameraPosition;
+            transform.position += new Vector3(
+                deltaMovement.x * _parallaxStrength.x, 
+                deltaMovement.y * _parallaxStrength.y, 0);
+            _lastCameraPosition = _mainCameraTransform.position;
         }
     }
 }

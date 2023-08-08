@@ -35,6 +35,17 @@ namespace Photo
             Init();
         }
 
+        private void Init()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            _interaction.OnLeverChanged += OnLeverChanged;
+            _playerInput = new PlayerInput();
+            _playerInput.Enable();
+            _playerInput.Player.Jump.performed += OnJump;
+            _playerInput.Player.Fall.performed += OnFall;
+            _playerInput.Player.Use.performed += OnUse;
+        }
+
         private void OnDisable()
         {
             _interaction.OnLeverChanged -= OnLeverChanged;
@@ -52,21 +63,10 @@ namespace Photo
         {
             transform.position = position;
         }
-        
+
         public void Die()
         {
             OnDie?.Invoke();
-        }
-        
-        private void Init()
-        {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-            _interaction.OnLeverChanged += OnLeverChanged;
-            _playerInput = new PlayerInput();
-            _playerInput.Enable();
-            _playerInput.Player.Jump.performed += OnJump;
-            _playerInput.Player.Fall.performed += OnFall;
-            _playerInput.Player.Use.performed += OnUse;
         }
 
         private void Move()
@@ -125,8 +125,10 @@ namespace Photo
         private IEnumerator FallRoutine()
         {
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, true);
+            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, true);
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
+            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
         }
     }
 }
