@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Photo/Scenes/Menu.unity
+    guid: 6bf3417e5a1ec804a9e4ced0df340cd4
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelCloud.unity
+    guid: 6e262daeb57b37247a36c60d35ff1efc
   m_configObjects: {}
