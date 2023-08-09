@@ -10,26 +10,29 @@ namespace Photo
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
+        public event Action OnJumpEvent;
+        public event Action OnRunEvent;
+        public event Action OnIdleEvent;
         public event Action OnDie;
         
         private const int LAYER_PLAYER = 7;
         private const int LAYER_BASE_PLATFORM = 8;
         private const int LAYER_MOVE_PLATFORM = 9;
 
-        private const string ANIMATION_RUN = "Move";
-        private const string ANIMATION_JUMP = "Jump";
 
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _interaction;
-        [SerializeField] private Transform _groundChecker;
-        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private GroundChecker _groundChecker;
         
         private PlayerInput _playerInput;
         private Rigidbody2D _rigidbody2D;
         private PlayerCharacteristics _characteristics;
         private Lever _lever;
-        private Dictionary<Type, IStateBehaviour> _stateBehaviours;
-        private IStateBehaviour _currentState;
+        private bool _isRun;
+
+        public Rigidbody2D Rigidbody2D => _rigidbody2D;
+        public Animator Animator => _animator;
+        public GroundChecker GroundChecker => _groundChecker;
         
         [Inject]
         private void Construct(PlayerCharacteristics characteristics)
@@ -47,15 +50,6 @@ namespace Photo
             _playerInput.Player.Jump.performed += OnJump;
             _playerInput.Player.Fall.performed += OnFall;
             _playerInput.Player.Use.performed += OnUse;
-
-            _stateBehaviours = new Dictionary<Type, IStateBehaviour>();
-            var idleState = new IdleStateBehaviour(_animator, StateType.Idle);
-            _stateBehaviours.Add(typeof(IdleStateBehaviour), idleState);
-            var runState = new RunStateBehaviour(_animator, StateType.Run);
-            _stateBehaviours.Add(typeof(RunStateBehaviour), runState);
-            var jumpState = new JumpStateBehaviour(_animator, StateType.Jump, _groundLayer);
-            jumpState.OnAnimationCompletedEvent += SetStateByDefault;
-            _stateBehaviours.Add(typeof(JumpStateBehaviour), jumpState);
         }
 
         private void OnDisable()
@@ -66,19 +60,9 @@ namespace Photo
             _playerInput.Player.Use.performed -= OnUse;
         }
 
-        private void Update()
-        {
-            _currentState?.Update();
-        }
-
         private void FixedUpdate()
         {
             Move();
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            transform.position = position;
         }
 
         public void Die()
@@ -97,40 +81,21 @@ namespace Photo
                 transform.localScale = value >= 0 ? new Vector3(1, transform.localScale.y, transform.localScale.y) :
                     new Vector3(-1, transform.localScale.y, transform.localScale.y);
             }
-            
-            if (_currentState == null)
-                return;
-
-            if (_currentState.Type == StateType.Idle && velocity.x != 0)
-            {
-                var runState = GetState<RunStateBehaviour>();
-                SetState(runState);
-            }
-            else if (_currentState.Type == StateType.Run && velocity.x == 0)
-            {
-                var idleState = GetState<IdleStateBehaviour>();
-                SetState(idleState);
-            }
         }
 
         private void OnJump(InputAction.CallbackContext obj)
         {
-            var isGround = Physics2D.OverlapCircle(_groundChecker.position, 0.1f, _groundLayer);
-            
-            if (isGround)
+            if (_groundChecker.Check())
             {
-                var jumpState = GetState<JumpStateBehaviour>();
-                SetState(jumpState);
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.AddForce(Vector2.up * _characteristics.JumpForce, ForceMode2D.Impulse);
+                OnJumpEvent?.Invoke();
             }
         }
         
         private void OnFall(InputAction.CallbackContext obj)
         {
-            var isGround = Physics2D.OverlapCircle(_groundChecker.position, 0.1f, _groundLayer);
-
-            if (isGround)
+            if (_groundChecker.Check())
                 StartCoroutine(FallRoutine());
         }
         
@@ -152,25 +117,6 @@ namespace Photo
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
-        }
-
-        private void SetState(IStateBehaviour newState)
-        {
-            _currentState?.Exit();
-            _currentState = newState;
-            _currentState.Enter();
-        }
-
-        private void SetStateByDefault()
-        {
-            var stateByDefault = GetState<IdleStateBehaviour>();
-            SetState(stateByDefault);
-        }
-
-        private IStateBehaviour GetState<T>() where T : IStateBehaviour
-        {
-            var type = typeof(T);
-            return _stateBehaviours[type];
         }
     }
 }
