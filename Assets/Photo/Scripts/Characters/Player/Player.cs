@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -27,6 +28,8 @@ namespace Photo
         private Rigidbody2D _rigidbody2D;
         private PlayerCharacteristics _characteristics;
         private Lever _lever;
+        private Dictionary<Type, IStateBehaviour> _stateBehaviours;
+        private IStateBehaviour _currentState;
         
         [Inject]
         private void Construct(PlayerCharacteristics characteristics)
@@ -44,6 +47,15 @@ namespace Photo
             _playerInput.Player.Jump.performed += OnJump;
             _playerInput.Player.Fall.performed += OnFall;
             _playerInput.Player.Use.performed += OnUse;
+
+            _stateBehaviours = new Dictionary<Type, IStateBehaviour>();
+            var idleState = new IdleStateBehaviour(_animator, StateType.Idle);
+            _stateBehaviours.Add(typeof(IdleStateBehaviour), idleState);
+            var runState = new RunStateBehaviour(_animator, StateType.Run);
+            _stateBehaviours.Add(typeof(RunStateBehaviour), runState);
+            var jumpState = new JumpStateBehaviour(_animator, StateType.Jump, _groundLayer);
+            jumpState.OnAnimationCompletedEvent += SetStateByDefault;
+            _stateBehaviours.Add(typeof(JumpStateBehaviour), jumpState);
         }
 
         private void OnDisable()
@@ -52,6 +64,11 @@ namespace Photo
             _playerInput.Player.Jump.performed -= OnJump;
             _playerInput.Player.Fall.performed -= OnFall;
             _playerInput.Player.Use.performed -= OnUse;
+        }
+
+        private void Update()
+        {
+            _currentState?.Update();
         }
 
         private void FixedUpdate()
@@ -81,13 +98,18 @@ namespace Photo
                     new Vector3(-1, transform.localScale.y, transform.localScale.y);
             }
             
-            if (!_animator.GetBool(ANIMATION_JUMP) && !_animator.GetBool(ANIMATION_RUN) && velocity.x != 0)
+            if (_currentState == null)
+                return;
+
+            if (_currentState.Type == StateType.Idle && velocity.x != 0)
             {
-                _animator.SetBool(ANIMATION_RUN, true);
+                var runState = GetState<RunStateBehaviour>();
+                SetState(runState);
             }
-            else if (velocity.x == 0)
+            else if (_currentState.Type == StateType.Run && velocity.x == 0)
             {
-                _animator.SetBool(ANIMATION_RUN, false);
+                var idleState = GetState<IdleStateBehaviour>();
+                SetState(idleState);
             }
         }
 
@@ -97,7 +119,8 @@ namespace Photo
             
             if (isGround)
             {
-                _animator.SetBool(ANIMATION_JUMP, true);
+                var jumpState = GetState<JumpStateBehaviour>();
+                SetState(jumpState);
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.AddForce(Vector2.up * _characteristics.JumpForce, ForceMode2D.Impulse);
             }
@@ -129,6 +152,25 @@ namespace Photo
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
+        }
+
+        private void SetState(IStateBehaviour newState)
+        {
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState.Enter();
+        }
+
+        private void SetStateByDefault()
+        {
+            var stateByDefault = GetState<IdleStateBehaviour>();
+            SetState(stateByDefault);
+        }
+
+        private IStateBehaviour GetState<T>() where T : IStateBehaviour
+        {
+            var type = typeof(T);
+            return _stateBehaviours[type];
         }
     }
 }
