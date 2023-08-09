@@ -7,6 +7,8 @@ namespace Photo
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetBool(RUN, false);
+            if (Player.GroundChecker.Check())
+                animator.SetBool(FALL, false);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

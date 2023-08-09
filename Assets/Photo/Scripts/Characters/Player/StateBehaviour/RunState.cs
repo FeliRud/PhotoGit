@@ -7,7 +7,7 @@ namespace Photo
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Math.Abs(Player.Rigidbody2D.velocity.y) > 0)
+            if (Math.Abs(Player.Velocity.y) > 0)
                 animator.SetBool(FALL, true);
         }
 
@@ -17,10 +17,10 @@ namespace Photo
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Player.Rigidbody2D.velocity.x == 0)
+            if (Player.Velocity.x == 0)
                 animator.SetBool(RUN, false);
             
-            if (Math.Abs(Player.Rigidbody2D.velocity.y) > 0)
+            if (Math.Abs(Player.Velocity.y) > 0)
                 animator.SetBool(FALL, true);
         }
     }

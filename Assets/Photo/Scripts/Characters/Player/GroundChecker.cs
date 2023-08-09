@@ -8,7 +8,7 @@ namespace Photo
 
         public bool Check()
         {
-            return Physics2D.OverlapCircle(transform.position, 0.1f, _groundLayer);
+            return Physics2D.Raycast(transform.position, Vector2.down,0.1f, _groundLayer);
         }
     }
 }

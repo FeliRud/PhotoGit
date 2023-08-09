@@ -30,7 +30,7 @@ namespace Photo
         private Lever _lever;
         private bool _isRun;
 
-        public Rigidbody2D Rigidbody2D => _rigidbody2D;
+        public Vector2 Velocity => _rigidbody2D.velocity;
         public Animator Animator => _animator;
         public GroundChecker GroundChecker => _groundChecker;
         

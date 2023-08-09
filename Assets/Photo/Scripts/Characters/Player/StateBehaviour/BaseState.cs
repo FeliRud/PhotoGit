@@ -8,7 +8,8 @@ namespace Photo
         public const string RUN = "Run";
         public const string JUMP = "Jump";
         public const string FALL = "Fall";
-        
+        public const string EXPECTATION = "Expectation";
+
         public Player Player { get; private set; }
 
         [Inject]
