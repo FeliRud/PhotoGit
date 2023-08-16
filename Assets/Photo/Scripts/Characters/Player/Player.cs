@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -9,24 +10,29 @@ namespace Photo
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
+        public event Action OnJumpEvent;
+        public event Action OnRunEvent;
+        public event Action OnIdleEvent;
         public event Action OnDie;
         
         private const int LAYER_PLAYER = 7;
         private const int LAYER_BASE_PLATFORM = 8;
         private const int LAYER_MOVE_PLATFORM = 9;
 
-        private const string ANIMATION_RUN = "Move";
-        private const string ANIMATION_JUMP = "Jump";
 
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _interaction;
-        [SerializeField] private Transform _groundChecker;
-        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private GroundChecker _groundChecker;
         
         private PlayerInput _playerInput;
         private Rigidbody2D _rigidbody2D;
         private PlayerCharacteristics _characteristics;
         private Lever _lever;
+        private bool _isRun;
+
+        public Vector2 Velocity => _rigidbody2D.velocity;
+        public Animator Animator => _animator;
+        public GroundChecker GroundChecker => _groundChecker;
         
         [Inject]
         private void Construct(PlayerCharacteristics characteristics)
@@ -59,11 +65,6 @@ namespace Photo
             Move();
         }
 
-        public void SetPosition(Vector3 position)
-        {
-            transform.position = position;
-        }
-
         public void Die()
         {
             OnDie?.Invoke();
@@ -80,34 +81,21 @@ namespace Photo
                 transform.localScale = value >= 0 ? new Vector3(1, transform.localScale.y, transform.localScale.y) :
                     new Vector3(-1, transform.localScale.y, transform.localScale.y);
             }
-            
-            if (!_animator.GetBool(ANIMATION_JUMP) && !_animator.GetBool(ANIMATION_RUN) && velocity.x != 0)
-            {
-                _animator.SetBool(ANIMATION_RUN, true);
-            }
-            else if (velocity.x == 0)
-            {
-                _animator.SetBool(ANIMATION_RUN, false);
-            }
         }
 
         private void OnJump(InputAction.CallbackContext obj)
         {
-            var isGround = Physics2D.OverlapCircle(_groundChecker.position, 0.1f, _groundLayer);
-            
-            if (isGround)
+            if (_groundChecker.Check())
             {
-                _animator.SetBool(ANIMATION_JUMP, true);
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.AddForce(Vector2.up * _characteristics.JumpForce, ForceMode2D.Impulse);
+                OnJumpEvent?.Invoke();
             }
         }
         
         private void OnFall(InputAction.CallbackContext obj)
         {
-            var isGround = Physics2D.OverlapCircle(_groundChecker.position, 0.1f, _groundLayer);
-
-            if (isGround)
+            if (_groundChecker.Check())
                 StartCoroutine(FallRoutine());
         }
         
