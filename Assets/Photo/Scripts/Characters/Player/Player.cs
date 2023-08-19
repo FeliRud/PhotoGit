@@ -21,13 +21,12 @@ namespace Photo
 
 
         [SerializeField] private Animator _animator;
-        [SerializeField] private PlayerInteraction _interaction;
+        [SerializeField] private PlayerInteraction _playerInteraction;
         [SerializeField] private GroundChecker _groundChecker;
         
         private PlayerInput _playerInput;
         private Rigidbody2D _rigidbody2D;
         private PlayerCharacteristics _characteristics;
-        private Lever _lever;
         private bool _isRun;
 
         public Vector2 Velocity => _rigidbody2D.velocity;
@@ -44,7 +43,8 @@ namespace Photo
         private void Init()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _interaction.OnLeverChanged += OnLeverChanged;
+            _playerInteraction.OnInteractableInRangeEvent += InteractableInRange;
+            _playerInteraction.OnInteractableOutRangeEvent += InteractableOutRange;
             _playerInput = new PlayerInput();
             _playerInput.Enable();
             _playerInput.Player.Jump.performed += OnJump;
@@ -54,7 +54,8 @@ namespace Photo
 
         private void OnDisable()
         {
-            _interaction.OnLeverChanged -= OnLeverChanged;
+            _playerInteraction.OnInteractableInRangeEvent -= InteractableInRange;
+            _playerInteraction.OnInteractableOutRangeEvent -= InteractableOutRange;
             _playerInput.Player.Jump.performed -= OnJump;
             _playerInput.Player.Fall.performed -= OnFall;
             _playerInput.Player.Use.performed -= OnUse;
@@ -92,22 +93,20 @@ namespace Photo
                 OnJumpEvent?.Invoke();
             }
         }
-        
+
         private void OnFall(InputAction.CallbackContext obj)
         {
             if (_groundChecker.Check())
                 StartCoroutine(FallRoutine());
         }
-        
-        private void OnLeverChanged(Lever lever)
-        {
-            _lever = lever;
-        }
-        
+
+        private void InteractableInRange(){}
+
+        private void InteractableOutRange(){}
+
         private void OnUse(InputAction.CallbackContext obj)
         {
-            if (_lever != null)
-                _lever.Use();
+            _playerInteraction.Interaction();
         }
 
         private IEnumerator FallRoutine()
