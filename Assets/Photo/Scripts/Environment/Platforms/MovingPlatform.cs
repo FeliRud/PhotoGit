@@ -1,41 +1,38 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Photo
 {
     public class MovingPlatform : MonoBehaviour
     {
-        [SerializeField] private float _speed = 2f;
-        [SerializeField] private Transform _firstPosition;
-        [SerializeField] private Transform _secondPosition;
+        [SerializeField] public GameObject _interactableObject;
+        [SerializeField] public Transform _endPoint;
 
-        private Transform _targetPosition;
+        private Vector3 _startPosition;
+        private Interactable _interactable;
+        
         private void Start()
         {
-            _targetPosition = _firstPosition;
+            if (_interactableObject.TryGetComponent(out Interactable interactable))
+            {
+                _interactable = interactable;
+            }
+            else
+            {
+                Debug.LogError("Используется некорректный объект взаимодействия.");
+                return;
+            }
+
+            _startPosition = transform.position;
+            _interactable.OnInteractionEvent += LeverInteraction;
         }
 
-        private void Update()
+        private void LeverInteraction()
         {
-            if (Vector2.Distance(transform.position, _firstPosition.position) < 0.1f)
-                _targetPosition = _secondPosition;
-            
-            if (Vector2.Distance(transform.position, _secondPosition.position) < 0.1f)
-                _targetPosition = _firstPosition;
-
-            transform.position = Vector2.MoveTowards(
-                transform.position, 
-                _targetPosition.position, 
-                _speed * Time.deltaTime);
-        }
-
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            col.transform.SetParent(transform);
-        }
-        
-        private void OnCollisionExit2D(Collision2D col)
-        {
-            col.transform.SetParent(null);
+            if (transform.position == _startPosition)
+                transform.DOMove(_endPoint.position, 1f).SetEase(Ease.Linear);
+            else
+                transform.DOMove(_startPosition, 1f).SetEase(Ease.Linear);
         }
     }
 }
