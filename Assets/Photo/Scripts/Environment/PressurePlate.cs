@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Photo
 {
@@ -8,13 +7,7 @@ namespace Photo
         [SerializeField] private LayerMask _layer;
         [SerializeField] private Transform _plate;
 
-            private bool _isPressed;
-        private Vector3 _startPosition;
-        
-        private void Start()
-        {
-            _startPosition = transform.position;
-        }
+        private bool _isPressed;
 
         private void OnTriggerStay2D(Collider2D other)
         {
@@ -24,7 +17,7 @@ namespace Photo
         private void OnTriggerExit2D(Collider2D other)
         {
             _isPressed = false;
-            _plate.position = new Vector3(_plate.position.x, _plate.position.y +0.15f, _plate.position.z);
+            _plate.position = new Vector3(_plate.position.x, _plate.position.y + 0.15f, _plate.position.z);
             OnInteraction();
         }
         

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5291179208504473815}
   - component: {fileID: 4257533860098406941}
-  m_Layer: 0
+  - component: {fileID: 5033264592553068998}
+  m_Layer: 3
   m_Name: Lever_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +85,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &5033264592553068998
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510786299342519623}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.29, y: 1.53}
+    newSize: {x: 3.22, y: 2.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.7933224, y: 0.30377078}
+      - {x: -1.9822043, y: 0.17737214}
+      - {x: -2.0457778, y: 0.030194357}
+      - {x: 1.9270765, y: 0.025773808}
+      - {x: 1.8329835, y: 0.186289}
+      - {x: 1.6689571, y: 0.29753363}
 --- !u!1 &3778293337524834135
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +127,7 @@ GameObject:
   - component: {fileID: 3778293337524834134}
   - component: {fileID: 6327962714906979537}
   - component: {fileID: 6404650764876278554}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: PressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +164,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04796028, y: -0.053956747}
+  m_Offset: {x: 0.000631094, y: -0.053956747}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -143,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.021576, y: 0.38849068}
+  m_Size: {x: 3.3562484, y: 0.38849068}
   m_EdgeRadius: 0
 --- !u!114 &6404650764876278554
 MonoBehaviour:
@@ -159,7 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4224
+  _plate: {fileID: 3778293337964911354}
 --- !u!1 &3778293337964911355
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +203,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3778293337964911354}
   - component: {fileID: 3778293337964911357}
-  m_Layer: 10
-  m_Name: Model
+  m_Layer: 3
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

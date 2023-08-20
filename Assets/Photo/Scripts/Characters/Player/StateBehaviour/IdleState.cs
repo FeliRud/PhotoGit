@@ -17,7 +17,7 @@ namespace Photo
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Math.Abs(Player.Velocity.x) > 0)
+            if (Math.Abs(Player.Velocity.x) > 0.1f)
                 animator.SetBool(RUN, true);
             
             if (Math.Abs(Player.Velocity.y) > 0.1f)
