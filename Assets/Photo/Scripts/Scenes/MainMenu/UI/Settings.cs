@@ -47,7 +47,15 @@ namespace Photo
                 _volume.value = 0;
             }
             else
+            {
                 _volume.value = _prevValueVolume;
+            }
+        }
+
+        public void LoadSoundValue(float value)
+        {
+            _volume.value = value;
+            OnVolumeSliderValueChangeEvent?.Invoke(value);
         }
         
         private void SoundButtonClicked() => OnSoundButtonClickedEvent?.Invoke();

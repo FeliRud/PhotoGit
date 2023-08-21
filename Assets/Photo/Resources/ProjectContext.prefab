@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioValueChanger: {fileID: 1076032114526678806, guid: a84867fe83eff044ab31095732e91aa8, type: 3}
+  _saveLoader: {fileID: 4914840905799972518, guid: 4614696c41a87764381c21b0ddc8b828, type: 3}

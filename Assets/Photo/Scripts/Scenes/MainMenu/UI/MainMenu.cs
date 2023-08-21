@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -9,6 +10,7 @@ namespace Photo
         private PhotoAlbum _photoAlbum;
         private Settings _settings;
         private AudioValueChanger _audioValueChanger;
+        private SaveLoader _saveLoader;
         private SceneLoader _sceneLoader;
 
         [Inject]
@@ -17,28 +19,43 @@ namespace Photo
             PhotoAlbum photoAlbum,
             Settings settings,
             AudioValueChanger audioValueChanger,
+            SaveLoader saveLoader,
             SceneLoader sceneLoader)
         {
             _menu = menu;
+            _photoAlbum = photoAlbum;
+            _settings = settings;
+            _audioValueChanger = audioValueChanger;
+            _saveLoader = saveLoader;
+            _sceneLoader = sceneLoader;
+
+            Init();
+        }
+
+        private void Init()
+        {
             _menu.Show();
+
             _menu.OnPlayButtonClickedEvent += PlayButtonClicked;
             _menu.OnPhotoButtonClickedEvent += PhotoButtonClicked;
             _menu.OnSettingsButtonClickedEvent += SettingsButtonClicked;
             _menu.OnExitButtonClickedEvent += ExitButtonClicked;
-
-            _photoAlbum = photoAlbum;
+            
             _photoAlbum.OnPrevButtonClickedEvent += PrevButtonClicked;
             _photoAlbum.OnNextButtonClickedEvent += NextButtonClicked;
             _photoAlbum.OnCloseButtonClickedEvent += PhotoAlbumCloseButtonClicked;
             
-            _settings = settings;
             _settings.OnSoundButtonClickedEvent += SoundButtonClicked;
             _settings.OnResetProgressButtonClickedEvent += ResetProgressButtonClicked;
             _settings.OnVolumeSliderValueChangeEvent += VolumeSliderValueChange;
             _settings.OnCloseButtonClickedEvent += SettingsCloseButtonClicked;
+        }
 
-            _audioValueChanger = audioValueChanger;
-            _sceneLoader = sceneLoader;
+        private void Start()
+        {
+            var soundValue = _saveLoader.Data.Setting.SoundValue;
+            _settings.LoadSoundValue(soundValue);
+            _audioValueChanger.ChangeMusicValue(soundValue);
         }
 
         private void PlayButtonClicked()
@@ -82,6 +99,7 @@ namespace Photo
         private void VolumeSliderValueChange(float value)
         {
             _audioValueChanger.ChangeMusicValue(value);
+            _saveLoader.Data.Setting.SoundValueChanged(value);
         }
 
         private void SoundButtonClicked()
@@ -91,11 +109,12 @@ namespace Photo
 
         private void ResetProgressButtonClicked()
         {
-            
+            _saveLoader.Data.Progress.Reset();
         }
 
         private void SettingsCloseButtonClicked()
         {
+            _saveLoader.Save();
             _settings.Close();
             _menu.Show();
         }
