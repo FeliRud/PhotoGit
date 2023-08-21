@@ -86,7 +86,7 @@ namespace Photo
 
         private void OnJump(InputAction.CallbackContext obj)
         {
-            if (_groundChecker.Check())
+            if (_groundChecker.Check() && Math.Abs(Velocity.y) < 0.1f)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.AddForce(Vector2.up * _characteristics.JumpForce, ForceMode2D.Impulse);
@@ -96,7 +96,7 @@ namespace Photo
 
         private void OnFall(InputAction.CallbackContext obj)
         {
-            if (_groundChecker.Check())
+            if (_groundChecker.Check() && Math.Abs(Velocity.y) < 0.1f)
                 StartCoroutine(FallRoutine());
         }
 
@@ -113,7 +113,7 @@ namespace Photo
         {
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, true);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, true);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.3f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
         }

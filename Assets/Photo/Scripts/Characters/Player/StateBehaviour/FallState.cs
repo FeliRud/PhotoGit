@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Photo
 {
@@ -7,7 +8,7 @@ namespace Photo
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             animator.SetBool(RUN, false);
-            if (Player.GroundChecker.Check())
+            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.1f)
                 animator.SetBool(FALL, false);
         }
 
@@ -17,7 +18,7 @@ namespace Photo
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Player.GroundChecker.Check())
+            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.1f)
                 animator.SetBool(FALL, false);
         }
     }
