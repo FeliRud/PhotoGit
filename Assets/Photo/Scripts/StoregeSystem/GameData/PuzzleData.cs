@@ -1,11 +1,11 @@
 ﻿namespace Photo
 {
     [System.Serializable]
-    public class Puzzle
+    public class PuzzleData
     {
         public int ID;
 
-        public Puzzle(int id)
+        public PuzzleData(int id)
         {
             ID = id;
         }

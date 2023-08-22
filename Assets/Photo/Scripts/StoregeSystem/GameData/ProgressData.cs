@@ -6,7 +6,7 @@ namespace Photo
     public class ProgressData
     {
         public int Level;
-        public List<Puzzle> Puzzles;
+        public List<PuzzleData> Puzzles;
 
         public ProgressData()
         {
@@ -15,16 +15,16 @@ namespace Photo
 
         public void Reset()
         {
-            Puzzles = new List<Puzzle>();
+            Puzzles = new List<PuzzleData>();
             Level = 0;
         }
 
         public void AddPuzzle(int id)
         {
-            Puzzles.Add(new Puzzle(id));
+            Puzzles.Add(new PuzzleData(id));
         }
 
-        public List<Puzzle> GetPuzzles()
+        public List<PuzzleData> GetPuzzles()
         {
             return Puzzles;
         }
