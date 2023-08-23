@@ -3975,7 +3975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _photoFrame: {fileID: 2129256213}
-  _nextLevelID: 3
+  _nextLevelSceneID: 3
+  _levelID: 1
 --- !u!114 &872436265
 MonoBehaviour:
   m_ObjectHideFlags: 0

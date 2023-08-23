@@ -30,8 +30,11 @@ namespace Photo
             return Puzzles.FirstOrDefault(x => x.ID == id) != null;
         }
 
-        public void LevelCompleted()
+        public void LevelCompleted(int levelID)
         {
+            if (levelID <= Level)
+                return;
+            
             Level++;
         }
 

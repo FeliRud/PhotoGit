@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -41,10 +40,9 @@ namespace Photo
             _menu.OnSettingsButtonClickedEvent += SettingsButtonClicked;
             _menu.OnExitButtonClickedEvent += ExitButtonClicked;
             
-            _photoAlbum.OnPrevButtonClickedEvent += PrevButtonClicked;
-            _photoAlbum.OnNextButtonClickedEvent += NextButtonClicked;
+            _photoAlbum.OnAgainButtonClickedEvent += PhotoAlbumAgainButtonClicked;
             _photoAlbum.OnCloseButtonClickedEvent += PhotoAlbumCloseButtonClicked;
-            
+
             _settings.OnSoundButtonClickedEvent += SoundButtonClicked;
             _settings.OnResetProgressButtonClickedEvent += ResetProgressButtonClicked;
             _settings.OnVolumeSliderValueChangeEvent += VolumeSliderValueChange;
@@ -80,14 +78,9 @@ namespace Photo
             Application.Quit();
         }
 
-        private void PrevButtonClicked()
+        private void PhotoAlbumAgainButtonClicked(int sceneID)
         {
-            
-        }
-
-        private void NextButtonClicked()
-        {
-            
+            _sceneLoader.LoadSceneToID(sceneID);
         }
 
         private void PhotoAlbumCloseButtonClicked()

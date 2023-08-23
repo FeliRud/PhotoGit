@@ -6,7 +6,8 @@ namespace Photo
     public class LevelCompleted : MonoBehaviour
     {
         [SerializeField] private PhotoFrame _photoFrame;
-        [SerializeField] private int _nextLevelID;
+        [SerializeField] private int _nextLevelSceneID;
+        [SerializeField] private int _levelID;
 
         private SaveLoader _saveLoader;
         private SceneLoader _sceneLoader;
@@ -31,9 +32,9 @@ namespace Photo
 
         private void PlayerTakePhoto()
         {
-            _saveLoader.Data.Progress.LevelCompleted();
+            _saveLoader.Data.Progress.LevelCompleted(_levelID);
             _saveLoader.Save();
-            _sceneLoader.LoadSceneToInt(_nextLevelID);
+            _sceneLoader.LoadSceneToID(_nextLevelSceneID);
         }
     }
 }

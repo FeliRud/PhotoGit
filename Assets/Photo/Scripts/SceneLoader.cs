@@ -12,7 +12,7 @@ namespace Photo
             SceneManager.LoadScene(LEVEL_CLOUD);
         }
         
-        public void LoadSceneToInt(int sceneID)
+        public void LoadSceneToID(int sceneID)
         {
             SceneManager.LoadScene(sceneID);
         }
