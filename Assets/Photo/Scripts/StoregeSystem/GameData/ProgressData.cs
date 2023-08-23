@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Photo
 {
@@ -24,9 +25,9 @@ namespace Photo
             Puzzles.Add(new PuzzleData(id));
         }
 
-        public List<PuzzleData> GetPuzzles()
+        public bool PuzzleAvailable(int id)
         {
-            return Puzzles;
+            return Puzzles.FirstOrDefault(x => x.ID == id) != null;
         }
 
         public void LevelCompleted()

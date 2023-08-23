@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3526950001821743056}
   - component: {fileID: 7971503806029911582}
   m_Layer: 0
-  m_Name: Puzzle
+  m_Name: PuzzlePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2afda90a1e406e9b38a35b0c20b1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 0
+  _puzzleInfo: {fileID: 11400000, guid: 4f1595706b08b044fb5f9b7e7b7867ae, type: 2}
+  _spriteRenderer: {fileID: 2243674262054256943}
 --- !u!1 &5844720201981103285
 GameObject:
   m_ObjectHideFlags: 0
