@@ -13,6 +13,9 @@ public class Rope : MonoBehaviour
     
     void Start()
     {
+        var distance = (_endPosition.position - transform.position).magnitude;
+        _segmentLength = Mathf.FloorToInt(distance / _ropeSegLen);
+        
         _lineRenderer = GetComponent<LineRenderer>();
         Vector3 ropeStartPoint = transform.position;
 

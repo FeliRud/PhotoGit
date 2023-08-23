@@ -7,21 +7,23 @@ namespace Photo
     {
         public event Action OnCollisionEnterEvent;
         public event Action OnCollisionExitEvent;
-        
-        private void OnCollisionEnter2D(Collision2D col)
+
+        [SerializeField] private SpriteRenderer _light;
+
+        private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.TryGetComponent(out Player player))
             {
-                Debug.Log("Горю блять");
+                _light.gameObject.SetActive(true);
                 OnCollisionEnterEvent?.Invoke();
             }
         }
 
-        private void OnCollisionExit2D(Collision2D col)
+        private void OnTriggerExit2D(Collider2D col)
         {
             if (col.gameObject.TryGetComponent(out Player player))
             {
-                Debug.Log("Погасло нахуй");
+                _light.gameObject.SetActive(false);
                 OnCollisionExitEvent?.Invoke();
             }
         }

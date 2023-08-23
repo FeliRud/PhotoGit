@@ -15,6 +15,9 @@ namespace Photo
             _playerInput = new PlayerInput();
             _playerInput.Enable();
             _playerInput.Player.Switch.performed += Switch;
+
+            _day.SetActive(true);
+            _night.SetActive(false);
         }
 
         private void Switch(InputAction.CallbackContext obj)

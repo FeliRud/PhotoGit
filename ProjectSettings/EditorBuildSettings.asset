@@ -5,13 +5,28 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Photo/Scenes/Menu.unity
     guid: 6bf3417e5a1ec804a9e4ced0df340cd4
   - enabled: 1
+    path: Assets/Photo/Scenes/Prehistory.unity
+    guid: d6458de5e50dc2c4fbd3767b68161bec
+  - enabled: 1
     path: Assets/Photo/Scenes/LevelCloud.unity
     guid: 6e262daeb57b37247a36c60d35ff1efc
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelForest.unity
+    guid: 43c952421704a3742bb6df4c4c8e9a0a
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelCity.unity
+    guid: ee1bfe2fbf1b9ae459a7bf89e30193e4
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelFlowers.unity
+    guid: c1e081ba88060e245ba2487e0508f302
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelMountains.unity
+    guid: 9a1b56b135a023a4fb1c473188066ade
+  - enabled: 1
+    path: Assets/Photo/Scenes/The End.unity
+    guid: 00783c785b0be9c42b9f5203901c5c0b
   m_configObjects: {}
