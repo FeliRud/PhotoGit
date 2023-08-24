@@ -35,8 +35,10 @@ namespace Photo
 
             _currentPage = _saveLoader.Data.Progress.GetLevel() >= 1 ? _pages[1] : _pages[0];
             _currentPage.Show();
-            _prev.interactable = false;
-            
+            _prev.gameObject.SetActive(false);
+            if (_currentPage.LevelID == _saveLoader.Data.Progress.GetLevel())
+                _next.gameObject.SetActive(false);
+
             _prev.onClick.AddListener(PrevButtonClicked);    
             _next.onClick.AddListener(NextButtonClicked);
             _close.onClick.AddListener(CloseButtonClicked);
@@ -68,9 +70,9 @@ namespace Photo
             _currentPage = _pages[_currentPage.LevelID - 1];
             _currentPage.Show();
 
-            _next.interactable = true;
-            if (_currentPage.LevelID == 0)
-                _prev.interactable = false;
+            _next.gameObject.SetActive(true);
+            if (_currentPage.LevelID is 0 or 1)
+                _prev.gameObject.SetActive(false);
         }
 
         private void NextButtonClicked()
@@ -83,10 +85,10 @@ namespace Photo
             _currentPage = _pages[_currentPage.LevelID + 1];
             _currentPage.Show();
             
-            _prev.interactable = true;
+            _prev.gameObject.SetActive(true);
             if (_currentPage.LevelID == _pages.Count - 1 || 
                 _currentPage.LevelID == _saveLoader.Data.Progress.GetLevel())
-                _next.interactable = false;
+                _next.gameObject.SetActive(false);
         }
 
         private void AgainButtonClicked(int sceneID) => OnAgainButtonClickedEvent?.Invoke(sceneID);

@@ -19,7 +19,6 @@ namespace Photo
         private const int LAYER_BASE_PLATFORM = 8;
         private const int LAYER_MOVE_PLATFORM = 9;
 
-
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _playerInteraction;
         [SerializeField] private GroundChecker _groundChecker;
@@ -29,6 +28,7 @@ namespace Photo
         private PlayerCharacteristics _characteristics;
         private bool _isRun;
 
+        public PlayerInput PlayerInput => _playerInput;
         public Vector2 Velocity => _rigidbody2D.velocity;
         public Animator Animator => _animator;
         public GroundChecker GroundChecker => _groundChecker;
@@ -46,7 +46,7 @@ namespace Photo
             _playerInteraction.OnInteractableInRangeEvent += InteractableInRange;
             _playerInteraction.OnInteractableOutRangeEvent += InteractableOutRange;
             _playerInput = new PlayerInput();
-            _playerInput.Enable();
+            EnablePlayerInput();
             _playerInput.Player.Jump.performed += OnJump;
             _playerInput.Player.Fall.performed += OnFall;
             _playerInput.Player.Use.performed += OnUse;
@@ -66,6 +66,16 @@ namespace Photo
             Move();
         }
 
+        public void EnablePlayerInput()
+        {
+            _playerInput.Enable();
+        }
+        
+        public void DisablePlayerInput()
+        {
+            _playerInput.Disable();
+        }
+        
         public void Die()
         {
             OnDie?.Invoke();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Photo
 {
@@ -9,13 +10,17 @@ namespace Photo
         [SerializeField] private GameObject _night;
         
         private PlayerInput _playerInput;
+        private Player _player;
 
+        [Inject]
+        private void Construct(Player player)
+        {
+            _player = player;
+        }
+        
         private void Start()
         {
-            _playerInput = new PlayerInput();
-            _playerInput.Enable();
-            _playerInput.Player.Switch.performed += Switch;
-
+            _player.PlayerInput.Player.Switch.performed += Switch;
             _day.SetActive(true);
             _night.SetActive(false);
         }
