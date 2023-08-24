@@ -4,11 +4,8 @@ using Random = UnityEngine.Random;
 
 namespace Photo
 {
-    public class Lamp : MonoBehaviour
+    public class Lamp : Interactable
     {
-        public event Action OnLampTouchEvent;
-        public event Action OnLampDontTouchEvent;
-        
         [SerializeField] private LampCollision _lampCollision;
         [SerializeField] private Transform _pivot;
         [SerializeField] private Transform _point1;
@@ -54,12 +51,12 @@ namespace Photo
 
         private void LampCollisionEnter()
         {
-            OnLampTouchEvent?.Invoke();
+            OnInteraction();
         }
 
         private void LampCollisionExit()
         {
-            OnLampDontTouchEvent?.Invoke();
+            OnInteraction();
         }
         
         private void OnDrawGizmos() {

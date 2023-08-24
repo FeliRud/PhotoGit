@@ -17,7 +17,12 @@ namespace Photo
         {
             _player = player;
         }
-        
+
+        private void OnDisable()
+        {
+            _player.PlayerInput.Player.Switch.performed -= Switch;
+        }
+
         private void Start()
         {
             _player.PlayerInput.Player.Switch.performed += Switch;
