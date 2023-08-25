@@ -4366,7 +4366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445479790b3e4ea1a5ae27d3ec8481e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _photoFrame: {fileID: 2129256213}
   _nextLevelSceneID: 3
   _levelID: 1
 --- !u!114 &872436265
@@ -5945,6 +5944,7 @@ MonoBehaviour:
   _player: {fileID: 7326313898453426900, guid: c35adf4d3a8d7674ebe3a0f0ac4b9ac8, type: 3}
   _spawnPoint: {fileID: 6648885522374857459}
   _characteristics: {fileID: 11400000, guid: 3a3f91ddec755504dbab69ae880be12c, type: 2}
+  _photoFrame: {fileID: 2129256213}
 --- !u!4 &1119448698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4919669527057177439, guid: 7c24627611975e346bb6c4c9a7d10f86, type: 3}

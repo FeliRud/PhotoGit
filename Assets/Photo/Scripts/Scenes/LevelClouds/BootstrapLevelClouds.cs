@@ -8,9 +8,11 @@ namespace Photo
         [SerializeField] private Player _player;
         [SerializeField] private SpawnPoint _spawnPoint;
         [SerializeField] private PlayerCharacteristics _characteristics;
+        [SerializeField] private PhotoFrame _photoFrame;
         
         public override void InstallBindings()
         {
+            Container.Bind<PhotoFrame>().FromInstance(_photoFrame).AsSingle();
             BindPlayerCharacteristics();
             BindSpawnPoint();
             BindPlayer();

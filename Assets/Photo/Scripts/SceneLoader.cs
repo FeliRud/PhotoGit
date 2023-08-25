@@ -1,25 +1,38 @@
-﻿using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Photo
 {
-    public class SceneLoader
+    public class SceneLoader : MonoBehaviour
     {
-        private const string LEVEL_CLOUD = "LevelCloud"; 
-        private const string LEVEL_CITY = "LevelCity"; 
-        
-        public void LoadLevelCloud()
-        {
-            SceneManager.LoadScene(LEVEL_CLOUD);
-        }
+        private Coroutine _loadSceneToIDRoutine;
         
         public void LoadSceneToID(int sceneID)
         {
-            SceneManager.LoadScene(sceneID);
+            if (_loadSceneToIDRoutine != null)
+                StopCoroutine(_loadSceneToIDRoutine);
+
+            _loadSceneToIDRoutine = StartCoroutine(LoadSceneToIDRoutine(sceneID));
         }
         
         public void RestartScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        private IEnumerator LoadSceneToIDRoutine(int sceneID)
+        {
+            var sceneAsync = SceneManager.LoadSceneAsync(sceneID);
+
+            sceneAsync.allowSceneActivation = false;
+            while (sceneAsync.progress < 0.9f)
+            {
+                yield return null;
+            }
+            
+            yield return new WaitForSeconds(1f);
+            sceneAsync.allowSceneActivation = true;
         }
     }
 }

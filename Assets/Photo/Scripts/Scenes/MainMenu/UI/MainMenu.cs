@@ -5,6 +5,8 @@ namespace Photo
 {
     public class MainMenu : MonoBehaviour
     {
+        [SerializeField] private LoadingPage _loadingPage;
+
         private Menu _menu;
         private PhotoAlbum _photoAlbum;
         private Settings _settings;
@@ -58,7 +60,8 @@ namespace Photo
 
         private void PlayButtonClicked()
         {
-            _sceneLoader.LoadLevelCloud();
+            _loadingPage.Show();
+            _sceneLoader.LoadSceneToID(_saveLoader.Data.Progress.GetLevel() + 2);
         }
 
         private void PhotoButtonClicked()
@@ -80,6 +83,7 @@ namespace Photo
 
         private void PhotoAlbumAgainButtonClicked(int sceneID)
         {
+            _loadingPage.Show();
             _sceneLoader.LoadSceneToID(sceneID);
         }
 
