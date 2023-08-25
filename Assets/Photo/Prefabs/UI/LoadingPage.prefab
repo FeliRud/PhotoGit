@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 3580499580702290974}
   - component: {fileID: 3580499580702290973}
   m_Layer: 5
-  m_Name: Loading
+  m_Name: LoadingPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -688,10 +688,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Frame_The_End_1
   - m_Version: 1
-    m_Start: 5.1
+    m_Start: 5
     m_ClipIn: 0
     m_Asset: {fileID: -7696778900726844917}
-    m_Duration: 6.4
+    m_Duration: 6.5
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6429682745414459794}
     m_EaseInDuration: 0
