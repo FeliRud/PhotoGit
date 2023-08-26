@@ -18,7 +18,10 @@ namespace Photo
         
         public void RestartScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (_loadSceneToIDRoutine != null)
+                StopCoroutine(_loadSceneToIDRoutine);
+
+            _loadSceneToIDRoutine = StartCoroutine(LoadSceneToIDRoutine(SceneManager.GetActiveScene().buildIndex));
         }
 
         private IEnumerator LoadSceneToIDRoutine(int sceneID)

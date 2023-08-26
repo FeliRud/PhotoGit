@@ -78,6 +78,7 @@ namespace Photo
         
         public void Die()
         {
+            DisablePlayerInput();
             OnDie?.Invoke();
         }
 

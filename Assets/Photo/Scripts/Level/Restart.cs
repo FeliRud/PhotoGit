@@ -21,7 +21,7 @@ namespace Photo
 
         private void Init()
         {
-            _player.OnDie += PlayerDie;
+            //_player.OnDie += PlayerDie;
         }
 
         private void PlayerDie()

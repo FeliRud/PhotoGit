@@ -61,7 +61,11 @@ namespace Photo
         private void PlayButtonClicked()
         {
             _loadingPage.Show();
-            _sceneLoader.LoadSceneToID(_saveLoader.Data.Progress.GetLevel() + 2);
+            if (_saveLoader.Data.Progress.Prehistory)
+                _sceneLoader.LoadSceneToID(_saveLoader.Data.Progress.GetLevel() + 2);
+            else
+                _sceneLoader.LoadSceneToID(1);
+
         }
 
         private void PhotoButtonClicked()
