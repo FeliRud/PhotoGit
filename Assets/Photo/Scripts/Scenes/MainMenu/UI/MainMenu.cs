@@ -6,6 +6,7 @@ namespace Photo
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private LoadingPage _loadingPage;
+        [SerializeField] private RulesMenu _rulesMenu;
 
         private Menu _menu;
         private PhotoAlbum _photoAlbum;
@@ -47,6 +48,7 @@ namespace Photo
 
             _settings.OnSoundButtonClickedEvent += SoundButtonClicked;
             _settings.OnResetProgressButtonClickedEvent += ResetProgressButtonClicked;
+            _settings.OnRulesButtonClickedEvent += OnRulesButtonClicked;
             _settings.OnVolumeSliderValueChangeEvent += VolumeSliderValueChange;
             _settings.OnCloseButtonClickedEvent += SettingsCloseButtonClicked;
         }
@@ -111,6 +113,11 @@ namespace Photo
         private void ResetProgressButtonClicked()
         {
             _saveLoader.Data.Progress.Reset();
+        }
+
+        private void OnRulesButtonClicked()
+        {
+            _rulesMenu.Show();
         }
 
         private void SettingsCloseButtonClicked()

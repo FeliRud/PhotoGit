@@ -16,10 +16,13 @@ namespace Photo
             
             SceneLoader sceneLoader = Container.InstantiatePrefabForComponent<SceneLoader>(_sceneLoader);
             Container.Bind<SceneLoader>().FromInstance(sceneLoader).AsSingle();
+            DontDestroyOnLoad(sceneLoader);
 
             AudioValueChanger audioValueChanger =
                 Container.InstantiatePrefabForComponent<AudioValueChanger>(_audioValueChanger);
             Container.Bind<AudioValueChanger>().FromInstance(audioValueChanger).AsSingle();
+            DontDestroyOnLoad(audioValueChanger);
+
         }
     }
 }

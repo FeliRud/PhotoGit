@@ -11,7 +11,7 @@ namespace Photo
         public void LoadSceneToID(int sceneID)
         {
             if (_loadSceneToIDRoutine != null)
-                StopCoroutine(_loadSceneToIDRoutine);
+                return;
 
             _loadSceneToIDRoutine = StartCoroutine(LoadSceneToIDRoutine(sceneID));
         }
@@ -19,8 +19,8 @@ namespace Photo
         public void RestartScene()
         {
             if (_loadSceneToIDRoutine != null)
-                StopCoroutine(_loadSceneToIDRoutine);
-
+                return;
+            
             _loadSceneToIDRoutine = StartCoroutine(LoadSceneToIDRoutine(SceneManager.GetActiveScene().buildIndex));
         }
 
@@ -29,13 +29,11 @@ namespace Photo
             var sceneAsync = SceneManager.LoadSceneAsync(sceneID);
 
             sceneAsync.allowSceneActivation = false;
-            while (sceneAsync.progress < 0.9f)
-            {
-                yield return null;
-            }
+            yield return sceneAsync.progress < 0.9f;
             
             yield return new WaitForSeconds(1f);
             sceneAsync.allowSceneActivation = true;
+            _loadSceneToIDRoutine = null;
         }
     }
 }

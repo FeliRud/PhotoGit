@@ -28,16 +28,16 @@ namespace Photo
 
         private void DeathPanelRestartButtonClicked()
         {
-            _deathPanel.Close();
             _saveLoader.Save();
             _loadingPage.Show();
+            _deathPanel.Close();
             _sceneLoader.RestartScene();
         }
 
         private void DeathPanelMenuButtonClicked()
         {
-            _deathPanel.Close();
             _saveLoader.Save();
+            _deathPanel.Close();
             _loadingPage.Show();
             _sceneLoader.LoadSceneToID(0);
         }

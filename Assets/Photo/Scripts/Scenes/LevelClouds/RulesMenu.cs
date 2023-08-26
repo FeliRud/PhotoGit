@@ -17,21 +17,17 @@ namespace Photo
 
         private RulesPanel _currentPanel;
         private Player _player;
-        
-        [Inject]
-        private void Construct(Player player)
-        {
-            _player = player;
-        }
-        
+
         private void Start()
         {
+            _player = FindObjectOfType<Player>();
             Show();
         }
 
         public void Show()
         {
-            _player.DisablePlayerInput();
+            if (_player != null)
+                _player.DisablePlayerInput();
             _textContine.DOColor(Color.white, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
             _currentPanel = _rulesPanels[0];
             _currentPanel.Show();
@@ -41,7 +37,8 @@ namespace Photo
         private void Close()
         {
             OnRulesCompletedEvent?.Invoke();
-            _player.EnablePlayerInput();
+            if (_player != null)
+                _player.EnablePlayerInput();
             gameObject.SetActive(false);
         }
         

@@ -9,12 +9,14 @@ namespace Photo
     {
         public event Action OnSoundButtonClickedEvent;
         public event Action OnResetProgressButtonClickedEvent;
+        public event Action OnRulesButtonClickedEvent;
         public event Action<float> OnVolumeSliderValueChangeEvent;
         public event Action OnCloseButtonClickedEvent;
         
         [SerializeField] private Slider _volume;
         [SerializeField] private Button _sound;
         [SerializeField] private Button _resetProgress;
+        [SerializeField] private Button _rulesButton;
         [SerializeField] private Button _close;
         [SerializeField] private TextMeshProUGUI _version;
 
@@ -26,6 +28,7 @@ namespace Photo
             _close.onClick.AddListener(CloseButtonClicked);
             _sound.onClick.AddListener(SoundButtonClicked);
             _resetProgress.onClick.AddListener(ResetProgressButtonClicked);
+            _rulesButton.onClick.AddListener(OnRulesButtonClicked);
             _volume.onValueChanged.AddListener(VolumeSliderValueChange);
             gameObject.SetActive(true);
         }
@@ -57,10 +60,12 @@ namespace Photo
             _volume.value = value;
             OnVolumeSliderValueChangeEvent?.Invoke(value);
         }
-        
+
         private void SoundButtonClicked() => OnSoundButtonClickedEvent?.Invoke();
 
         private void VolumeSliderValueChange(float value) => OnVolumeSliderValueChangeEvent?.Invoke(value);
+
+        private void OnRulesButtonClicked() => OnRulesButtonClickedEvent?.Invoke();
 
         private void ResetProgressButtonClicked() => OnResetProgressButtonClickedEvent?.Invoke();
 
