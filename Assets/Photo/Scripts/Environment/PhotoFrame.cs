@@ -10,7 +10,7 @@ namespace Photo
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        private float _duration = 0.8f;
+        private float _duration = 2f;
         private Tweener _tween;
 
         private void OnDisable()

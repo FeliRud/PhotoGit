@@ -3011,7 +3011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingPage: {fileID: 253617673}
-  _nextLevelSceneID: 4
+  _nextLevelSceneID: 0
   _levelID: 2
 --- !u!1001 &899565822
 PrefabInstance:
@@ -3701,7 +3701,7 @@ MonoBehaviour:
   _player: {fileID: 7326313898453426900, guid: c35adf4d3a8d7674ebe3a0f0ac4b9ac8, type: 3}
   _spawnPoint: {fileID: 6648885522374857459}
   _characteristics: {fileID: 11400000, guid: 3a3f91ddec755504dbab69ae880be12c, type: 2}
-  _photoFrame: {fileID: 0}
+  _photoFrame: {fileID: 1872120096}
 --- !u!1001 &1126878922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6202,6 +6202,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4463649846492863735, guid: 4fdcd6b92977c8f41bbfb68bb8d9dd9f, type: 3}
   m_PrefabInstance: {fileID: 1872120093}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1872120096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2129256213, guid: 4fdcd6b92977c8f41bbfb68bb8d9dd9f, type: 3}
+  m_PrefabInstance: {fileID: 1872120093}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d31efe9a094162a79ea584b8f5c0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1873997661
 GameObject:
   m_ObjectHideFlags: 0
