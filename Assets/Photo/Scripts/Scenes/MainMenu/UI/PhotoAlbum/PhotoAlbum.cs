@@ -11,6 +11,7 @@ namespace Photo
         public event Action<int> OnAgainButtonClickedEvent; 
         public event Action OnCloseButtonClickedEvent;
 
+        [SerializeField] private AudioSource _soundFlipping;
         [SerializeField] private List<Page> _pages;
         [SerializeField] private Button _prev;
         [SerializeField] private Button _next;
@@ -60,27 +61,14 @@ namespace Photo
             gameObject.SetActive(false);
         }
 
-        private void PrevButtonClicked()
-        {
-            if (_currentPage.LevelID <= 0 || 
-                _saveLoader.Data.Progress.GetLevel() >= 1 && _currentPage.LevelID <= 1)
-                return;
-            
-            _currentPage.Close();
-            _currentPage = _pages[_currentPage.LevelID - 1];
-            _currentPage.Show();
-
-            _next.gameObject.SetActive(true);
-            if (_currentPage.LevelID is 0 or 1)
-                _prev.gameObject.SetActive(false);
-        }
-
         private void NextButtonClicked()
         {
             if (_currentPage.LevelID >= _pages.Count - 1 || 
                 _currentPage.LevelID >= _saveLoader.Data.Progress.GetLevel()) 
                 return;
-            
+
+            _soundFlipping.Play();
+
             _currentPage.Close();
             _currentPage = _pages[_currentPage.LevelID + 1];
             _currentPage.Show();
@@ -89,6 +77,23 @@ namespace Photo
             if (_currentPage.LevelID == _pages.Count - 1 || 
                 _currentPage.LevelID == _saveLoader.Data.Progress.GetLevel())
                 _next.gameObject.SetActive(false);
+        }
+
+        private void PrevButtonClicked()
+        {
+            if (_currentPage.LevelID <= 0 || 
+                _saveLoader.Data.Progress.GetLevel() >= 1 && _currentPage.LevelID <= 1)
+                return;
+            
+            _soundFlipping.Play();
+
+            _currentPage.Close();
+            _currentPage = _pages[_currentPage.LevelID - 1];
+            _currentPage.Show();
+
+            _next.gameObject.SetActive(true);
+            if (_currentPage.LevelID is 0 or 1)
+                _prev.gameObject.SetActive(false);
         }
 
         private void AgainButtonClicked(int sceneID) => OnAgainButtonClickedEvent?.Invoke(sceneID);

@@ -16,7 +16,7 @@ namespace Photo
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.1f)
+            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.01f)
                 animator.SetBool(JUMP, false);
         }
     }

@@ -5,12 +5,13 @@ namespace Photo
 {
     public abstract class BaseState : StateMachineBehaviour
     {
-        public const string RUN = "Run";
-        public const string JUMP = "Jump";
-        public const string FALL = "Fall";
-        public const string EXPECTATION = "Expectation";
+        protected const string RUN = "Run";
+        protected const string JUMP = "Jump";
+        protected const string FALL = "Fall";
+        protected const string EXPECTATION = "Expectation";
+        protected const string PUSHING = "Pushing";
 
-        public Player Player { get; private set; }
+        protected Player Player { get; private set; }
 
         [Inject]
         private void Construct(Player player)

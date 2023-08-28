@@ -11,8 +11,6 @@ namespace Photo
     public class Player : MonoBehaviour
     {
         public event Action OnJumpEvent;
-        public event Action OnRunEvent;
-        public event Action OnIdleEvent;
         public event Action OnDie;
         
         private const int LAYER_PLAYER = 7;
@@ -22,6 +20,7 @@ namespace Photo
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _playerInteraction;
         [SerializeField] private GroundChecker _groundChecker;
+        [SerializeField] private BoxChecker _boxChecker;
         
         private PlayerInput _playerInput;
         private Rigidbody2D _rigidbody2D;
@@ -32,6 +31,7 @@ namespace Photo
         public Vector2 Velocity => _rigidbody2D.velocity;
         public Animator Animator => _animator;
         public GroundChecker GroundChecker => _groundChecker;
+        public BoxChecker BoxChecker => _boxChecker;
         
         [Inject]
         private void Construct(PlayerCharacteristics characteristics)

@@ -1,15 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Photo
 {
-    public class FallState : BaseState
+    public class PushingState : BaseState
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.SetBool(RUN, false);
-            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.01f)
-                animator.SetBool(FALL, false);
+            
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,8 +15,10 @@ namespace Photo
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (Player.GroundChecker.Check() && Math.Abs(Player.Velocity.y) < 0.01f)
-                animator.SetBool(FALL, false);
+            if (!Player.BoxChecker.BoxInRange || Mathf.Abs(Player.Velocity.x) == 0)
+            {
+                animator.SetBool(PUSHING, false);
+            }
         }
     }
 }
