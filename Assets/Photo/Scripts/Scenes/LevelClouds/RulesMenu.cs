@@ -4,7 +4,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Zenject;
 
 namespace Photo
 {
@@ -36,10 +35,10 @@ namespace Photo
 
         private void Close()
         {
-            OnRulesCompletedEvent?.Invoke();
             if (_player != null)
                 _player.EnablePlayerInput();
             gameObject.SetActive(false);
+            OnRulesCompletedEvent?.Invoke();
         }
         
         public void OnPointerDown(PointerEventData eventData)
