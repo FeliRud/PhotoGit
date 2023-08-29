@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -17,6 +16,7 @@ namespace Photo
         private const int LAYER_BASE_PLATFORM = 8;
         private const int LAYER_MOVE_PLATFORM = 9;
 
+        [SerializeField] private Transform _followTarget;
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerInteraction _playerInteraction;
         [SerializeField] private GroundChecker _groundChecker;
@@ -27,6 +27,7 @@ namespace Photo
         private PlayerCharacteristics _characteristics;
         private bool _isRun;
 
+        public Transform FollowTarget => _followTarget;
         public PlayerInput PlayerInput => _playerInput;
         public Vector2 Velocity => _rigidbody2D.velocity;
         public Animator Animator => _animator;
@@ -124,7 +125,7 @@ namespace Photo
         {
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, true);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.35f);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
         }
