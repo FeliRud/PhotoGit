@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Zenject;
@@ -103,6 +102,7 @@ namespace Photo
         private void OnSettingsButtonClicked()
         {
             Fold();
+            _pauseInput.Disable();
             _settingsPanel.Show();
         }
 
@@ -138,6 +138,7 @@ namespace Photo
         {
             _saveLoader.Save();
             _settingsPanel.Close();
+            _pauseInput.Enable();
             Unfold();
         }
     }

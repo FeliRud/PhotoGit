@@ -23,6 +23,12 @@ namespace Photo
             _text.DOColor(Color.white, 0.5f);
         }
 
+        public void CloseFast()
+        {
+            _image.color = new Color(Color.white.r, Color.white.g, Color.white.b, 0);
+            _text.color = new Color(Color.white.r, Color.white.g, Color.white.b, 0);
+        }
+        
         public void Close()
         {
             Tweener tween = _image.DOColor(new Color(Color.white.r, Color.white.g, Color.white.b, 0), 0.5f);

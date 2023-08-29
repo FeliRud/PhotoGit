@@ -48,7 +48,10 @@ namespace Photo
                 return;
             
             player.Die();
-            _deathPanel.Show();
+            _saveLoader.Save();
+            _loadingPage.Show();
+            _deathPanel.Close();
+            _sceneLoader.RestartScene();
         }
     }
 }

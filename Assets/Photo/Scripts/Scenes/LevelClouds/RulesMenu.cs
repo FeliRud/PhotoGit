@@ -25,6 +25,11 @@ namespace Photo
 
         public void Show()
         {
+            foreach (var rulesPanel in _rulesPanels)
+            {
+                rulesPanel.CloseFast();
+            }
+            
             if (_player != null)
                 _player.DisablePlayerInput();
             _textContine.DOColor(Color.white, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);

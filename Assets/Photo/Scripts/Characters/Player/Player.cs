@@ -84,7 +84,7 @@ namespace Photo
 
         private void Move()
         {
-            float value = _playerInput.Player.Move.ReadValue<float>();
+            float value = Mathf.RoundToInt(_playerInput.Player.Move.ReadValue<float>());
             Vector2 velocity = new Vector2(value * _characteristics.Speed,  _rigidbody2D.velocity.y);
             _rigidbody2D.velocity = velocity;
 

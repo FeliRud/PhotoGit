@@ -76,7 +76,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""A/D [Keyboard]"",
-                    ""id"": ""a414e56c-e52b-46ea-bf95-694a7a4870fa"",
+                    ""id"": ""890261fe-f3bb-4751-8329-3747639430f2"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -87,7 +87,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""e233abf7-9e0a-4d0d-a4f3-91247f2a35fb"",
+                    ""id"": ""0cf4a2e1-5e2a-4e8e-b86b-c8c20320fff8"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -98,7 +98,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""d87ca676-5ad7-4dbc-99ea-384b898a801c"",
+                    ""id"": ""965cb697-9b6e-4f63-822e-df8661413ac1"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
