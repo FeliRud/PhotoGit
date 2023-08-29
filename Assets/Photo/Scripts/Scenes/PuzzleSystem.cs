@@ -6,6 +6,7 @@ namespace Photo
     public class PuzzleSystem : MonoBehaviour
     {
         [SerializeField] private Puzzle _puzzle;
+        [SerializeField] private PuzzlePage _puzzlePage;
 
         private SaveLoader _saveLoader;
 
@@ -26,6 +27,8 @@ namespace Photo
 
         private void TakePuzzle(Puzzle puzzle)
         {
+            _puzzlePage.Show();
+            _puzzlePage.InsertPuzzle(puzzle.ID);
             _saveLoader.Data.Progress.AddPuzzle(puzzle.ID);
             _saveLoader.Save();
         }
