@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Photo/Scenes/LevelCity.unity
     guid: ee1bfe2fbf1b9ae459a7bf89e30193e4
+  - enabled: 1
+    path: Assets/Photo/Scenes/LevelFlowers.unity
+    guid: c1e081ba88060e245ba2487e0508f302
   m_configObjects: {}
