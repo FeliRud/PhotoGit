@@ -21,7 +21,8 @@ namespace Photo
         private PauseInput _pauseInput;
 
         [Inject]
-        private void Construct(Player player, AudioValueChanger audioValueChanger, SaveLoader saveLoader, SceneLoader sceneLoader)
+        private void Construct(Player player, AudioValueChanger audioValueChanger, SaveLoader saveLoader,
+            SceneLoader sceneLoader)
         {
             _player = player;
             _audioValueChanger = audioValueChanger;
@@ -42,13 +43,9 @@ namespace Photo
         private void OnPauseButtonClicked(InputAction.CallbackContext obj)
         {
             if (!gameObject.activeSelf)
-            {
                 Show();
-            }
             else
-            {
                 Close();
-            }
         }
 
         private void Show()
@@ -63,7 +60,7 @@ namespace Photo
             _continueButton.onClick.AddListener(OnContinueButtonClicked);
             _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
             _menuButton.onClick.AddListener(OnMenuButtonClicked);
-            
+
             Unfold();
         }
 
@@ -75,21 +72,21 @@ namespace Photo
             _settingsPanel.OnRulesButtonClickedEvent -= OnRulesButtonClicked;
             _settingsPanel.OnVolumeSliderValueChangeEvent -= OnVolumeSliderValueChange;
             _settingsPanel.OnCloseButtonClickedEvent -= OnSettingsCloseButtonClicked;
-            
+
             _continueButton.onClick.RemoveListener(OnContinueButtonClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
             _menuButton.onClick.RemoveListener(OnMenuButtonClicked);
-            
+
             Fold();
         }
 
-        private void Unfold() => 
+        private void Unfold() =>
             gameObject.SetActive(true);
 
-        private void Fold() => 
+        private void Fold() =>
             gameObject.SetActive(false);
 
-        private void OnContinueButtonClicked() => 
+        private void OnContinueButtonClicked() =>
             Close();
 
         private void OnSettingsButtonClicked()
@@ -102,7 +99,7 @@ namespace Photo
         private void OnMenuButtonClicked()
         {
             _loadingPage.Show();
-            _sceneLoader.LoadSceneToID(0);            
+            _sceneLoader.LoadSceneToID(0);
         }
 
         private void OnRulesCompleted()
@@ -111,10 +108,10 @@ namespace Photo
             _player.DisablePlayerInput();
         }
 
-        private void OnVolumeSliderValueChange(float value) => 
+        private void OnVolumeSliderValueChange(float value) =>
             _audioValueChanger.ChangeMusicValue(value);
 
-        private void OnSoundButtonClicked() => 
+        private void OnSoundButtonClicked() =>
             _settingsPanel.OnOffMusic();
 
         private void OnRulesButtonClicked()

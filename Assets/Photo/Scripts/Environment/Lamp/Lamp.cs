@@ -4,19 +4,23 @@ using Random = UnityEngine.Random;
 
 namespace Photo
 {
-    public class Lamp : Interactable
+    public class Lamp : MonoBehaviour
     {
+        public event Action<Lamp> OnLampTouchEvent;
+
+        [SerializeField] private int _id;
         [SerializeField] private LampCollision _lampCollision;
         [SerializeField] private Transform _pivot;
         [SerializeField] private Transform _point1;
         [SerializeField] private Transform _point2;
         [SerializeField] private Transform _point3;
         [SerializeField] private Transform _point4;
-        
-        
+
         private float _t = 0.5f;
         private bool _rightMove;
         private float _speed = 2f;
+
+        public int ID => _id;
         
         private void Start()
         {
@@ -28,20 +32,12 @@ namespace Photo
 
         private void Update()
         {
-            if (_rightMove)
-            {
-                if (_t >= 0.8f)
-                    _rightMove = !_rightMove;
-                else
-                    _t += Time.deltaTime / _speed;
-            }
-            else
-            {
-                if (_t <= 0.2f)
-                    _rightMove = !_rightMove;
-                else
-                    _t -= Time.deltaTime / _speed;
-            }
+            if (_rightMove && _t >= 0.8f)
+                SwitchDirectionMove();
+            else if (_t <= 0.2f) 
+                SwitchDirectionMove();
+
+            UpdateDelta();
             
             _pivot.position = Bezier.GetPoint(_point1.position, _point2.position, _point3.position, _point4.position, _t);
             Vector3 rotate = Bezier.GetFirstDerivative(_point1.position, _point2.position, _point3.position, _point4.position, _t);
@@ -49,16 +45,17 @@ namespace Photo
             _pivot.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
-        private void LampCollisionEnter()
-        {
-            OnInteraction();
-        }
+        private void LampCollisionEnter() =>
+            OnLampTouchEvent?.Invoke(this);
 
-        private void LampCollisionExit()
-        {
-            OnInteraction();
-        }
-        
+        private void LampCollisionExit() {}
+
+        private void UpdateDelta() => 
+            _t = _rightMove ? _t + Time.deltaTime / _speed : _t - Time.deltaTime / _speed;
+
+        private void SwitchDirectionMove() => 
+            _rightMove = !_rightMove;
+
         private void OnDrawGizmos() {
 
             int segmentsNumber = 20;
