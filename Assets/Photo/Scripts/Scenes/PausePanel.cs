@@ -10,7 +10,7 @@ namespace Photo
         [SerializeField] private LoadingPage _loadingPage;
         [SerializeField] private Settings _settingsPanel;
         [SerializeField] private RulesMenu _rulesMenu;
-        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _continueButton;
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _menuButton;
 
@@ -60,7 +60,7 @@ namespace Photo
             _settingsPanel.OnVolumeSliderValueChangeEvent += OnVolumeSliderValueChange;
             _settingsPanel.OnCloseButtonClickedEvent += OnSettingsCloseButtonClicked;
 
-            _restartButton.onClick.AddListener(OnRestartButtonClicked);
+            _continueButton.onClick.AddListener(OnContinueButtonClicked);
             _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
             _menuButton.onClick.AddListener(OnMenuButtonClicked);
             
@@ -76,28 +76,21 @@ namespace Photo
             _settingsPanel.OnVolumeSliderValueChangeEvent -= OnVolumeSliderValueChange;
             _settingsPanel.OnCloseButtonClickedEvent -= OnSettingsCloseButtonClicked;
             
-            _restartButton.onClick.RemoveListener(OnRestartButtonClicked);
+            _continueButton.onClick.RemoveListener(OnContinueButtonClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
             _menuButton.onClick.RemoveListener(OnMenuButtonClicked);
             
             Fold();
         }
 
-        private void Unfold()
-        {
+        private void Unfold() => 
             gameObject.SetActive(true);
-        }
 
-        private void Fold()
-        {
+        private void Fold() => 
             gameObject.SetActive(false);
-        }
 
-        private void OnRestartButtonClicked()
-        {
-            _loadingPage.Show();
-            _sceneLoader.RestartScene();
-        }
+        private void OnContinueButtonClicked() => 
+            Close();
 
         private void OnSettingsButtonClicked()
         {
@@ -118,15 +111,11 @@ namespace Photo
             _player.DisablePlayerInput();
         }
 
-        private void OnVolumeSliderValueChange(float value)
-        {
+        private void OnVolumeSliderValueChange(float value) => 
             _audioValueChanger.ChangeMusicValue(value);
-        }
 
-        private void OnSoundButtonClicked()
-        {
+        private void OnSoundButtonClicked() => 
             _settingsPanel.OnOffMusic();
-        }
 
         private void OnRulesButtonClicked()
         {

@@ -130,7 +130,7 @@ MonoBehaviour:
   _loadingPage: {fileID: 0}
   _settingsPanel: {fileID: 0}
   _rulesMenu: {fileID: 0}
-  _restartButton: {fileID: 8908724444498787560}
+  _continueButton: {fileID: 8908724444498787560}
   _settingsButton: {fileID: 5262652223754745338}
   _menuButton: {fileID: 8908724445038036038}
 --- !u!1 &6548231683229245047
@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705198547614, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_Name
-      value: RestartButton
+      value: ContinueButton
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705228710961, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_text
