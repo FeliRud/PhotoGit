@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Firefly",
+                    "type": "Button",
+                    "id": "1b5dfe87-2d65-42bb-affc-a46fdf8f15be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -137,6 +146,17 @@
                     "processors": "",
                     "groups": "MouseKeyboard",
                     "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0d78a11-4bc7-4380-8e24-57d43816b123",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MouseKeyboard",
+                    "action": "Firefly",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

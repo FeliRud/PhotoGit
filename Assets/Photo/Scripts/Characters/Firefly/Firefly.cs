@@ -12,9 +12,9 @@ namespace Photo
 
         private Dictionary<Type, IState> _states;
         private IState _currentState;
-
         private Player _player;
         private Vector3 _followIdlePosition = Vector3.zero;
+        public bool HelpLamp;
 
         [Inject]
         private void Construct(Player player)
@@ -22,11 +22,14 @@ namespace Photo
             _player = player;
             InitState();
             SetStateByDefault();
+            
+            _player.OnFireflyHelpEvent += OnFireflyHelp;
         }
 
         private void Update()
         {
-            
+            if (HelpLamp)
+                return;
             
             if (transform.position == _player.FollowTarget.position && _player.FollowTarget.position != _followIdlePosition)
             {
@@ -38,9 +41,20 @@ namespace Photo
                 SetState(GetState<FireflyFollowState>());
         }
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() => 
             _currentState?.Update();
+
+        public void SetState(IState newState)
+        {
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState.Enter();
+        }
+
+        public IState GetState<T>() where T : IState
+        {
+            var type = typeof(T);
+            return _states[type];
         }
 
         private void InitState()
@@ -55,23 +69,19 @@ namespace Photo
                 _states[typeof(FireflyShowRouteState)] = new FireflyShowRouteState(this, _lampPuzzle);
         }
 
-        private void SetState(IState newState)
-        {
-            _currentState?.Exit();
-            _currentState = newState;
-            _currentState.Enter();
-        }
-
         private void SetStateByDefault()
         {
             var stateByDefault = GetState<FireflyIdleState>();
             SetState(stateByDefault);
         }
-        
-        private IState GetState<T>() where T : IState
+
+        private void OnFireflyHelp()
         {
-            var type = typeof(T);
-            return _states[type];
+            if (_lampPuzzle == null)
+                return;
+            
+            HelpLamp = true;
+            SetState(GetState<FireflyShowRouteState>());
         }
     }
 }

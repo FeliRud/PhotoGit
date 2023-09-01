@@ -9,6 +9,7 @@ namespace Photo
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
+        public event Action OnFireflyHelpEvent;
         public event Action OnJumpEvent;
         public event Action OnDie;
         
@@ -51,6 +52,7 @@ namespace Photo
             _playerInput.Player.Jump.performed += OnJump;
             _playerInput.Player.Fall.performed += OnFall;
             _playerInput.Player.Use.performed += OnUse;
+            _playerInput.Player.Firefly.performed += OnFireflyHelp;
         }
 
         private void OnDisable()
@@ -71,12 +73,12 @@ namespace Photo
         {
             _playerInput.Enable();
         }
-        
+
         public void DisablePlayerInput()
         {
             _playerInput.Disable();
         }
-        
+
         public void Die()
         {
             DisablePlayerInput();
@@ -129,5 +131,8 @@ namespace Photo
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_BASE_PLATFORM, false);
             Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_MOVE_PLATFORM, false);
         }
+
+        private void OnFireflyHelp(InputAction.CallbackContext obj) => 
+            OnFireflyHelpEvent?.Invoke();
     }
 }

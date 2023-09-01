@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Firefly"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b5dfe87-2d65-42bb-affc-a46fdf8f15be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,6 +170,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0d78a11-4bc7-4380-8e24-57d43816b123"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKeyboard"",
+                    ""action"": ""Firefly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,6 +211,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Fall = m_Player.FindAction("Fall", throwIfNotFound: true);
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
         m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
+        m_Player_Firefly = m_Player.FindAction("Firefly", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -257,6 +278,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fall;
     private readonly InputAction m_Player_Use;
     private readonly InputAction m_Player_Switch;
+    private readonly InputAction m_Player_Firefly;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -266,6 +288,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Fall => m_Wrapper.m_Player_Fall;
         public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputAction @Switch => m_Wrapper.m_Player_Switch;
+        public InputAction @Firefly => m_Wrapper.m_Player_Firefly;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,6 +313,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Switch.started += instance.OnSwitch;
             @Switch.performed += instance.OnSwitch;
             @Switch.canceled += instance.OnSwitch;
+            @Firefly.started += instance.OnFirefly;
+            @Firefly.performed += instance.OnFirefly;
+            @Firefly.canceled += instance.OnFirefly;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -309,6 +335,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Switch.started -= instance.OnSwitch;
             @Switch.performed -= instance.OnSwitch;
             @Switch.canceled -= instance.OnSwitch;
+            @Firefly.started -= instance.OnFirefly;
+            @Firefly.performed -= instance.OnFirefly;
+            @Firefly.canceled -= instance.OnFirefly;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -342,5 +371,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnFall(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
+        void OnFirefly(InputAction.CallbackContext context);
     }
 }
