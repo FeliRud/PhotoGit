@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Photo
@@ -8,9 +8,12 @@ namespace Photo
     {
         [SerializeField] private Lamp[] _lamps;
         [SerializeField] private string _combinationString;
-
+        
         private readonly List<int> _combination = new();
         private int _consistency = 0;
+
+        public IReadOnlyList<Lamp> Lamps => _lamps;
+        public IReadOnlyList<int> Combination => _combination;
 
         private void Start()
         {

@@ -8,13 +8,14 @@ namespace Photo
     public class Firefly : MonoBehaviour
     {
         [SerializeField] private float _speed;
-        
+        [SerializeField] private LampPuzzles _lampPuzzle;
+
         private Dictionary<Type, IState> _states;
         private IState _currentState;
 
         private Player _player;
         private Vector3 _followIdlePosition = Vector3.zero;
-        
+
         [Inject]
         private void Construct(Player player)
         {
@@ -25,6 +26,8 @@ namespace Photo
 
         private void Update()
         {
+            
+            
             if (transform.position == _player.FollowTarget.position && _player.FollowTarget.position != _followIdlePosition)
             {
                 SetState(GetState<FireflyIdleState>());
@@ -42,10 +45,14 @@ namespace Photo
 
         private void InitState()
         {
-            _states = new Dictionary<Type, IState>();
+            _states = new Dictionary<Type, IState>
+            {
+                [typeof(FireflyFollowState)] = new FireflyFollowState(_speed, transform, _player.FollowTarget),
+                [typeof(FireflyIdleState)] = new FireflyIdleState(transform, _player.FollowTarget)
+            };
 
-            _states[typeof(FireflyFollowState)] = new FireflyFollowState(_speed, transform, _player.FollowTarget);
-            _states[typeof(FireflyIdleState)] = new FireflyIdleState(transform, _player.FollowTarget);
+            if (_lampPuzzle != null)
+                _states[typeof(FireflyShowRouteState)] = new FireflyShowRouteState(this, _lampPuzzle);
         }
 
         private void SetState(IState newState)

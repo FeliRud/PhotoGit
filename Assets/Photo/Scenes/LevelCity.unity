@@ -2142,9 +2142,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1040627177952274748, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Name
-      value: Lamp
+      value: Lamp ID1
       objectReference: {fileID: 0}
     - target: {fileID: 3339006030321530374, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
@@ -2462,9 +2470,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1040627177952274748, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Name
-      value: Lamp (1)
+      value: Lamp ID2
       objectReference: {fileID: 0}
     - target: {fileID: 3339006030321530374, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
@@ -4328,9 +4344,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1040627177952274748, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Name
-      value: Lamp (2)
+      value: Lamp ID3
       objectReference: {fileID: 0}
     - target: {fileID: 3339006030321530374, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
@@ -4760,6 +4784,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 3028946034373223497, guid: 8585db498aa409f4b94dcb4c056c9696, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.79689
+      objectReference: {fileID: 0}
     - target: {fileID: 4483920023515918862, guid: 8585db498aa409f4b94dcb4c056c9696, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4975,9 +5003,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1040627177952274748, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1558120809140400567, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Name
-      value: Lamp (3)
+      value: Lamp ID4
       objectReference: {fileID: 0}
     - target: {fileID: 3339006030321530374, guid: 96a2c307122abc746add12fb455a0ed6, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
