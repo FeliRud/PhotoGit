@@ -19,7 +19,8 @@ namespace Photo
         [SerializeField] private Button _rulesButton;
         [SerializeField] private Button _close;
         [SerializeField] private TextMeshProUGUI _version;
-
+        [SerializeField] private CheckingReset _checkingReset;
+        
         private float _prevValueVolume;
 
         public void Show()
@@ -27,9 +28,10 @@ namespace Photo
             _version.text = $"Версия: {Application.version}";
             _close.onClick.AddListener(CloseButtonClicked);
             _sound.onClick.AddListener(SoundButtonClicked);
-            _resetProgress.onClick.AddListener(ResetProgressButtonClicked);
+            _resetProgress.onClick.AddListener(OnOpenCheckingResetPanel);
             _rulesButton.onClick.AddListener(OnRulesButtonClicked);
             _volume.onValueChanged.AddListener(VolumeSliderValueChange);
+            _checkingReset.OnRestartProgressButtonEvent += OnResetProgressButtonClickedEvent;
             gameObject.SetActive(true);
         }
 
@@ -37,10 +39,14 @@ namespace Photo
         {
             _close.onClick.RemoveListener(CloseButtonClicked);
             _sound.onClick.RemoveListener(SoundButtonClicked);
-            _resetProgress.onClick.RemoveListener(ResetProgressButtonClicked);
+            _resetProgress.onClick.RemoveListener(OnOpenCheckingResetPanel);
             _volume.onValueChanged.RemoveListener(VolumeSliderValueChange);
+            _checkingReset.OnRestartProgressButtonEvent -= OnResetProgressButtonClickedEvent;
             gameObject.SetActive(false);
         }
+
+        private void OnOpenCheckingResetPanel() => 
+            _checkingReset.Show();
 
         public void OnOffMusic()
         {
@@ -50,9 +56,7 @@ namespace Photo
                 _volume.value = 0;
             }
             else
-            {
                 _volume.value = _prevValueVolume;
-            }
         }
 
         public void LoadSoundValue(float value)
@@ -67,7 +71,7 @@ namespace Photo
 
         private void OnRulesButtonClicked() => OnRulesButtonClickedEvent?.Invoke();
 
-        private void ResetProgressButtonClicked() => OnResetProgressButtonClickedEvent?.Invoke();
+        private void OnResetProgressButtonClicked() => OnResetProgressButtonClickedEvent?.Invoke();
 
         private void CloseButtonClicked() => OnCloseButtonClickedEvent?.Invoke();
     }
