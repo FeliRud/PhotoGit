@@ -14,14 +14,10 @@ namespace Photo
         private SaveLoader _saveLoader;
 
         [Inject]
-        private void Construct(SaveLoader saveLoader)
+        private void Construct(Player player, SaveLoader saveLoader)
         {
+            _player = player;
             _saveLoader = saveLoader;
-        }
-
-        private void Start()
-        {
-            _player = FindObjectOfType<Player>();
         }
 
         public void Show()
@@ -39,13 +35,13 @@ namespace Photo
 
         private void Close()
         {
-            if (_player != null)
-                _player.EnablePlayerInput();
             gameObject.SetActive(false);
             foreach (var puzzle in _puzzles)
             {
                 puzzle.Show();
             }
+            if (_player != null)
+                _player.EnablePlayerInput();
         }
 
         public void InsertPuzzle(int puzzleID)
