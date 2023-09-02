@@ -243,7 +243,7 @@ MonoBehaviour:
     \u0433\u043E\u043B\u043E\u0432\u043E\u043B\u043E\u043C\u043A\u0443.\n\u0414\u043B\u044F
     \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F
     \u0441 \u043D\u0438\u043C \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435
-    \u043A\u043B\u0430\u0432\u0438\u0448\u0443 \"\""
+    \u043A\u043B\u0430\u0432\u0438\u0448\u0443 \"Q\""
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9173c53a8a107f749b969fbd1e05bd5a, type: 2}
   m_sharedMaterial: {fileID: -8337067242186762707, guid: 9173c53a8a107f749b969fbd1e05bd5a, type: 2}
@@ -4747,7 +4747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705198547613, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.23999
+      value: -26.239983
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705198547613, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4972,7 +4972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705198547613, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.73999
+      value: -25.739983
       objectReference: {fileID: 0}
     - target: {fileID: 8744016705198547613, guid: eeb924d8a9cf60e47b684fcee2b93c41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

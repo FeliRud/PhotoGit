@@ -12,7 +12,7 @@ namespace Photo
         public event Action OnRulesButtonClickedEvent;
         public event Action<float> OnVolumeSliderValueChangeEvent;
         public event Action OnCloseButtonClickedEvent;
-        
+
         [SerializeField] private Slider _volume;
         [SerializeField] private Button _sound;
         [SerializeField] private Button _resetProgress;
@@ -20,7 +20,7 @@ namespace Photo
         [SerializeField] private Button _close;
         [SerializeField] private TextMeshProUGUI _version;
         [SerializeField] private CheckingReset _checkingReset;
-        
+
         private float _prevValueVolume;
 
         public void Show()
@@ -28,24 +28,28 @@ namespace Photo
             _version.text = $"Версия: {Application.version}";
             _close.onClick.AddListener(CloseButtonClicked);
             _sound.onClick.AddListener(SoundButtonClicked);
-            _resetProgress.onClick.AddListener(OnOpenCheckingResetPanel);
             _rulesButton.onClick.AddListener(OnRulesButtonClicked);
             _volume.onValueChanged.AddListener(VolumeSliderValueChange);
-            _checkingReset.OnRestartProgressButtonEvent += OnResetProgressButtonClickedEvent;
             gameObject.SetActive(true);
+            if (_checkingReset == null)
+                return;
+            _resetProgress.onClick.AddListener(OnOpenCheckingResetPanel);
+            _checkingReset.OnRestartProgressButtonEvent += OnResetProgressButtonClickedEvent;
         }
 
         public void Close()
         {
             _close.onClick.RemoveListener(CloseButtonClicked);
             _sound.onClick.RemoveListener(SoundButtonClicked);
-            _resetProgress.onClick.RemoveListener(OnOpenCheckingResetPanel);
             _volume.onValueChanged.RemoveListener(VolumeSliderValueChange);
-            _checkingReset.OnRestartProgressButtonEvent -= OnResetProgressButtonClickedEvent;
             gameObject.SetActive(false);
+            if (_checkingReset == null)
+                return;
+            _resetProgress.onClick.RemoveListener(OnOpenCheckingResetPanel);
+            _checkingReset.OnRestartProgressButtonEvent -= OnResetProgressButtonClickedEvent;
         }
 
-        private void OnOpenCheckingResetPanel() => 
+        private void OnOpenCheckingResetPanel() =>
             _checkingReset.Show();
 
         public void OnOffMusic()
