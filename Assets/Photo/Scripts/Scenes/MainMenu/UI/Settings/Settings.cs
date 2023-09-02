@@ -69,14 +69,19 @@ namespace Photo
             OnVolumeSliderValueChangeEvent?.Invoke(value);
         }
 
-        private void SoundButtonClicked() => OnSoundButtonClickedEvent?.Invoke();
+        private void SoundButtonClicked() => 
+            OnSoundButtonClickedEvent?.Invoke();
 
-        private void VolumeSliderValueChange(float value) => OnVolumeSliderValueChangeEvent?.Invoke(value);
+        private void VolumeSliderValueChange(float value) => 
+            OnVolumeSliderValueChangeEvent?.Invoke(value);
 
-        private void OnRulesButtonClicked() => OnRulesButtonClickedEvent?.Invoke();
+        private void OnRulesButtonClicked() => 
+            OnRulesButtonClickedEvent?.Invoke();
 
-        private void OnResetProgressButtonClicked() => OnResetProgressButtonClickedEvent?.Invoke();
+        private void OnResetProgressButtonClicked() => 
+            OnResetProgressButtonClickedEvent?.Invoke();
 
-        private void CloseButtonClicked() => OnCloseButtonClickedEvent?.Invoke();
+        private void CloseButtonClicked() =>
+            OnCloseButtonClickedEvent?.Invoke();
     }
 }

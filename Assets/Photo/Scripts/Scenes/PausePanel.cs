@@ -32,7 +32,6 @@ namespace Photo
             _pauseInput = new PauseInput();
             _pauseInput.Enable();
             _pauseInput.Pause.Pause.performed += OnPauseButtonClicked;
-            _rulesMenu.OnRulesCompletedEvent += OnRulesCompleted;
         }
 
         private void OnDestroy()
@@ -56,6 +55,7 @@ namespace Photo
             _settingsPanel.OnRulesButtonClickedEvent += OnRulesButtonClicked;
             _settingsPanel.OnVolumeSliderValueChangeEvent += OnVolumeSliderValueChange;
             _settingsPanel.OnCloseButtonClickedEvent += OnSettingsCloseButtonClicked;
+            _rulesMenu.OnRulesCompletedEvent += OnRulesCompleted;
 
             _continueButton.onClick.AddListener(OnContinueButtonClicked);
             _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
@@ -72,6 +72,7 @@ namespace Photo
             _settingsPanel.OnRulesButtonClickedEvent -= OnRulesButtonClicked;
             _settingsPanel.OnVolumeSliderValueChangeEvent -= OnVolumeSliderValueChange;
             _settingsPanel.OnCloseButtonClickedEvent -= OnSettingsCloseButtonClicked;
+            _rulesMenu.OnRulesCompletedEvent -= OnRulesCompleted;
 
             _continueButton.onClick.RemoveListener(OnContinueButtonClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
@@ -104,8 +105,8 @@ namespace Photo
 
         private void OnRulesCompleted()
         {
-            _settingsPanel.Show();
             _player.DisablePlayerInput();
+            _settingsPanel.Show();
         }
 
         private void OnVolumeSliderValueChange(float value) =>
