@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6278e05c14846f19130cd78af090b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactableObject: {fileID: 0}
+  _model: {fileID: 798274397730291486}
+  _interactable: {fileID: 0}
   _endPoint: {fileID: 4093523897563335047}
+  _speed: 5
 --- !u!1 &6708983642234089454
 GameObject:
   m_ObjectHideFlags: 0

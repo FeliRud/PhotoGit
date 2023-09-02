@@ -16,10 +16,8 @@ namespace Photo
             Expectation(animator, _token.Token);
         }
 
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) => 
             _token.Cancel();
-        }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -35,7 +33,7 @@ namespace Photo
 
         private async Task Expectation(Animator animator, CancellationToken token)
         {
-            await Task.Delay(TimeSpan.FromSeconds(10f), token);
+            await Task.Delay(TimeSpan.FromSeconds(20f), token);
             animator.SetInteger(EXPECTATION, Random.Range(1, 3));
         }
     }

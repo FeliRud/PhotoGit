@@ -8,7 +8,10 @@ namespace Photo
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (Math.Abs(Player.Velocity.x) > 0.01f || Math.Abs(Player.Velocity.y) > 0.01f)
+            {
                 animator.SetInteger(EXPECTATION, 0);
+                animator.SetBool(RUN, true);
+            }
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

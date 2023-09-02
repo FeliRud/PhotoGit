@@ -1,38 +1,43 @@
-﻿using DG.Tweening;
+﻿using System;
 using UnityEngine;
 
 namespace Photo
 {
     public class MovingPlatform : MonoBehaviour
     {
-        [SerializeField] public GameObject _interactableObject;
-        [SerializeField] public Transform _endPoint;
+        [SerializeField] private Interactable _interactable;
+        [SerializeField] private Transform _model;
+        [SerializeField] private Transform _endPoint;
+        [SerializeField] private float _speed = 5f;
 
         private Vector3 _startPosition;
-        private Interactable _interactable;
-        
+        private Vector3 _nextPosition;
+
         private void Start()
         {
-            if (_interactableObject.TryGetComponent(out Interactable interactable))
-            {
-                _interactable = interactable;
-            }
-            else
-            {
-                Debug.LogError("Используется некорректный объект взаимодействия.");
-                return;
-            }
+            if (_model == null)
+                throw new ArgumentException("Missing model transform.");
+
+            if (_interactable == null)
+                throw new AggregateException("Missing interactable object.");
 
             _startPosition = transform.position;
+            _nextPosition = _startPosition;
             _interactable.OnInteractionEvent += LeverInteraction;
         }
 
-        private void LeverInteraction()
+        private void Update()
         {
-            if (transform.position == _startPosition)
-                transform.DOMove(_endPoint.position, 1f).SetEase(Ease.Linear);
-            else
-                transform.DOMove(_startPosition, 1f).SetEase(Ease.Linear);
+            if (_model.position == _nextPosition)
+                return;
+
+            MoveToPosition();
         }
+
+        private void LeverInteraction() =>
+            _nextPosition = _nextPosition == _startPosition ? _endPoint.position : _startPosition;
+
+        private void MoveToPosition() =>
+            _model.position = Vector3.MoveTowards(_model.position, _nextPosition, _speed * Time.deltaTime);
     }
 }

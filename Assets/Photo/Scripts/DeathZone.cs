@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photo.Scripts.Environment;
+using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -10,16 +11,16 @@ namespace Photo
 
         private SaveLoader _saveLoader;
         private SceneLoader _sceneLoader;
-        
+
         [Inject]
         private void Construct(SaveLoader saveLoader, SceneLoader sceneLoader)
         {
             _saveLoader = saveLoader;
             _sceneLoader = sceneLoader;
-            
+
             Init();
         }
-        
+
         private void Init()
         {
             _deathPanel.OnRestartButtonClickedEvent += DeathPanelRestartButtonClicked;
@@ -44,14 +45,18 @@ namespace Photo
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.TryGetComponent(out Player player))
-                return;
-            
-            player.Die();
-            _saveLoader.Save();
-            _loadingPage.Show();
-            _deathPanel.Close();
-            _sceneLoader.RestartScene();
+            if (col.TryGetComponent(out Player player))
+            {
+                player.Die();
+                _saveLoader.Save();
+                _loadingPage.Show();
+                _deathPanel.Close();
+                _sceneLoader.RestartScene();
+            }
+
+            var box = col.GetComponentInParent<ChangeSpawnPoint>();
+            if (box != null) 
+                box.GetComponent<Box>().Respawn();
         }
     }
 }
