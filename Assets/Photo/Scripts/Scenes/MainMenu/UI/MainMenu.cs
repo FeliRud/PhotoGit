@@ -63,11 +63,14 @@ namespace Photo
         private void PlayButtonClicked()
         {
             _loadingPage.Show();
-            if (_saveLoader.Data.Progress.Prehistory)
-                _sceneLoader.LoadSceneToID(_saveLoader.Data.Progress.GetLevel() + 2);
-            else
-                _sceneLoader.LoadSceneToID(1);
+            var nextLevel = _saveLoader.Data.Progress.Prehistory
+                ? _saveLoader.Data.Progress.GetLevel() + 2
+                : 1;
 
+            if (nextLevel > 5)
+                nextLevel = 5;
+            
+            _sceneLoader.LoadSceneToID(nextLevel); 
         }
 
         private void PhotoButtonClicked()
@@ -82,10 +85,8 @@ namespace Photo
             _settings.Show();
         }
 
-        private void ExitButtonClicked()
-        {
+        private void ExitButtonClicked() => 
             Application.Quit();
-        }
 
         private void PhotoAlbumAgainButtonClicked(int sceneID)
         {
@@ -105,20 +106,14 @@ namespace Photo
             _saveLoader.Data.Setting.SoundValueChanged(value);
         }
 
-        private void SoundButtonClicked()
-        {
+        private void SoundButtonClicked() => 
             _settings.OnOffMusic();
-        }
 
-        private void ResetProgressButtonClicked()
-        {
+        private void ResetProgressButtonClicked() => 
             _saveLoader.Data.Progress.Reset();
-        }
 
-        private void OnRulesButtonClicked()
-        {
+        private void OnRulesButtonClicked() => 
             _rulesMenu.Show();
-        }
 
         private void SettingsCloseButtonClicked()
         {

@@ -34,7 +34,7 @@ namespace Photo
             if (_checkingReset == null)
                 return;
             _resetProgress.onClick.AddListener(OnOpenCheckingResetPanel);
-            _checkingReset.OnRestartProgressButtonEvent += OnResetProgressButtonClickedEvent;
+            _checkingReset.OnRestartProgressButtonEvent += OnResetProgressButtonClicked;
         }
 
         public void Close()
@@ -43,10 +43,11 @@ namespace Photo
             _sound.onClick.RemoveListener(SoundButtonClicked);
             _volume.onValueChanged.RemoveListener(VolumeSliderValueChange);
             gameObject.SetActive(false);
+            
             if (_checkingReset == null)
                 return;
             _resetProgress.onClick.RemoveListener(OnOpenCheckingResetPanel);
-            _checkingReset.OnRestartProgressButtonEvent -= OnResetProgressButtonClickedEvent;
+            _checkingReset.OnRestartProgressButtonEvent -= OnResetProgressButtonClicked;
         }
 
         private void OnOpenCheckingResetPanel() =>

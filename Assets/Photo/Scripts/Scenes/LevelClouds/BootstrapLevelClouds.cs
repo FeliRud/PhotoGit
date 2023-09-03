@@ -18,13 +18,8 @@ namespace Photo
             BindPlayer();
         }
 
-        private void BindSpawnPoint()
-        {
-            Container
-                .Bind<SpawnPoint>()
-                .FromInstance(_spawnPoint)
-                .AsSingle();
-        }
+        private void BindSpawnPoint() =>
+            Container.Bind<SpawnPoint>().FromInstance(_spawnPoint).AsSingle();
 
         private void BindPlayer()
         {
@@ -32,21 +27,13 @@ namespace Photo
                 Container.InstantiatePrefabForComponent<Player>(
                     _player, 
                     _spawnPoint.GetPosition(), 
-                    Quaternion.identity,
+                    Quaternion.identity, 
                     null);
 
-            Container
-                .Bind<Player>()
-                .FromInstance(player)
-                .AsSingle();
+            Container.Bind<Player>().FromInstance(player).AsSingle();
         }
 
-        private void BindPlayerCharacteristics()
-        {
-            Container
-                .Bind<PlayerCharacteristics>()
-                .FromInstance(_characteristics)
-                .AsSingle();
-        }
+        private void BindPlayerCharacteristics() =>
+            Container.Bind<PlayerCharacteristics>().FromInstance(_characteristics).AsSingle();
     }
 }
