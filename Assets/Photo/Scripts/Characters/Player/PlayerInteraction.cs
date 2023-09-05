@@ -10,15 +10,10 @@ namespace Photo
 
         private IInteractable _interactable;
         
-        public void Interaction()
-        {
-            if (_interactable == null)
-                return;
+        public void Interaction() => 
+            _interactable?.Interactable();
 
-            _interactable.Interactable();
-        }
-        
-        
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             col.TryGetComponent(out IInteractable interactable);

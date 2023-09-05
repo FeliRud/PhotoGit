@@ -6,9 +6,13 @@ namespace Photo
     {
         [SerializeField] private Transform _pivot;
 
+        public bool Enabled { get; private set; } = false;
+        
         public void Interactable()
         {
             _pivot.localEulerAngles = new Vector3(0,0,-_pivot.localEulerAngles.z);
+            Enabled = !Enabled;
+            Debug.Log(Enabled);
             OnInteraction();
         }
     }

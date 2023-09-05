@@ -16,8 +16,7 @@ namespace Photo
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(
-            Menu menu,
+        private void Construct(Menu menu,
             PhotoAlbum photoAlbum,
             Settings settings,
             AudioValueChanger audioValueChanger,
@@ -67,8 +66,8 @@ namespace Photo
                 ? _saveLoader.Data.Progress.GetLevel() + 2
                 : 1;
 
-            if (nextLevel > 5)
-                nextLevel = 5;
+            if (nextLevel > 6)
+                nextLevel = 6;
             
             _sceneLoader.LoadSceneToID(nextLevel); 
         }
