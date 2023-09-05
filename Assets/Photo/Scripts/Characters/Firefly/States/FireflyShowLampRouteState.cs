@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using Photo.Scripts.StateMachine;
 using UnityEngine;
 
-namespace Photo
+namespace Photo.Scripts.Characters.Firefly.States
 {
-    public class FireflyShowRouteState : IState
+    public class FireflyShowLampRouteState : IState
     {
         private const float DELAY = 2f;
 
@@ -16,7 +17,7 @@ namespace Photo
         private Vector3 _nextPosition;
         private Vector3 _randomPosition;
 
-        public FireflyShowRouteState(Firefly firefly, LampPuzzles lampsPuzzle)
+        public FireflyShowLampRouteState(Firefly firefly, LampPuzzles lampsPuzzle)
         {
             _firefly = firefly;
             _lampsPuzzle = lampsPuzzle;
@@ -42,7 +43,7 @@ namespace Photo
         }
 
         public void Exit() => 
-            _firefly.HelpLamp = false;
+            _firefly.ItHelps = false;
 
         private void MoveToPosition()
         {

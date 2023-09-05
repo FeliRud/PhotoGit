@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Photo.Scripts.Scenes.LevelMountains
 {
-    public class PuzzleLevers : MonoBehaviour
+    public class ShowHideObject : MonoBehaviour
     {
         [SerializeField] private GameObject[] _allHiddenObject;
         [SerializeField] private Interactable _interactable;

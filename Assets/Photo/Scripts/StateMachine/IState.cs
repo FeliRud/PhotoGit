@@ -1,4 +1,4 @@
-﻿namespace Photo
+﻿namespace Photo.Scripts.StateMachine
 {
     public interface IState
     {

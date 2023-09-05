@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Photo.Scripts.StateMachine;
+using UnityEngine;
 
-namespace Photo
+namespace Photo.Scripts.Characters.Firefly.States
 {
     public class FireflyFollowState : IState
     {

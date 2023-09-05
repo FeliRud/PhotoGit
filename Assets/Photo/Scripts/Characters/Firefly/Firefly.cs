@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using Photo.Scripts.Characters.Firefly.States;
+using Photo.Scripts.Scenes.LevelMountains;
+using Photo.Scripts.StateMachine;
 using UnityEngine;
 using Zenject;
 
-namespace Photo
+namespace Photo.Scripts.Characters.Firefly
 {
     public class Firefly : MonoBehaviour
     {
         [SerializeField] private float _speed;
         [SerializeField] private LampPuzzles _lampPuzzle;
+        [SerializeField] private LeverPuzzles _leverPuzzles;
 
         private Dictionary<Type, IState> _states;
         private IState _currentState;
         private Player _player;
         private Vector3 _followIdlePosition = Vector3.zero;
-        public bool HelpLamp;
+
+        public bool ItHelps { get; set; }
 
         [Inject]
         private void Construct(Player player)
@@ -28,7 +33,7 @@ namespace Photo
 
         private void Update()
         {
-            if (HelpLamp)
+            if (ItHelps)
                 return;
             
             if (transform.position == _player.FollowTarget.position && _player.FollowTarget.position != _followIdlePosition)
@@ -66,7 +71,10 @@ namespace Photo
             };
 
             if (_lampPuzzle != null)
-                _states[typeof(FireflyShowRouteState)] = new FireflyShowRouteState(this, _lampPuzzle);
+                _states[typeof(FireflyShowLampRouteState)] = new FireflyShowLampRouteState(this, _lampPuzzle);
+
+            if (_leverPuzzles != null)
+                _states[typeof(FireflyShowLeverRouteState)] = new FireflyShowLeverRouteState(this, _leverPuzzles);
         }
 
         private void SetStateByDefault()
@@ -77,11 +85,26 @@ namespace Photo
 
         private void OnFireflyHelp()
         {
-            if (_lampPuzzle == null)
+            TrySetStateLampRoute();
+            TrySetStateLeverRoute();
+        }
+
+        private void TrySetStateLeverRoute()
+        {
+            if (_leverPuzzles == null) 
                 return;
             
-            HelpLamp = true;
-            SetState(GetState<FireflyShowRouteState>());
+            ItHelps = true;
+            SetState(GetState<FireflyShowLeverRouteState>());
+        }
+
+        private void TrySetStateLampRoute()
+        {
+            if (_lampPuzzle == null) 
+                return;
+            
+            ItHelps = true;
+            SetState(GetState<FireflyShowLampRouteState>());
         }
     }
 }
