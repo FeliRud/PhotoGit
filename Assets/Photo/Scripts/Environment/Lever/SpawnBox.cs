@@ -21,7 +21,7 @@ namespace Photo
         {
             if (_boxSpawned)
             {
-                _box.Respawn();
+                /*_box.Respawn();*/
                 return;
             }
 
