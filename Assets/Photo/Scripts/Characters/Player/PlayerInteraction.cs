@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Photo
@@ -8,22 +9,27 @@ namespace Photo
         public event Action OnInteractableInRangeEvent; 
         public event Action OnInteractableOutRangeEvent;
 
-        private IInteractable _interactable;
+        private readonly List<IInteractable> _interactable = new();
         
-        public void Interaction() => 
-            _interactable?.Interactable();
-
-
+        public void Interaction()
+        {
+            foreach (var interactable in _interactable) 
+                interactable.Interactable();
+        }
+        
         private void OnTriggerEnter2D(Collider2D col)
         {
-            col.TryGetComponent(out IInteractable interactable);
-            _interactable = interactable;
+            if (!col.TryGetComponent(out IInteractable interactable)) 
+                return;
+            _interactable.Add(interactable);
             OnInteractableInRangeEvent?.Invoke();
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D col)
         {
-            _interactable = null;
+            if (!col.TryGetComponent(out IInteractable interactable)) 
+                return;
+            _interactable.Remove(interactable);
             OnInteractableOutRangeEvent?.Invoke();
         }
     }
