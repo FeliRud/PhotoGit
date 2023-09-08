@@ -17,17 +17,18 @@ namespace Photo.End
         [SerializeField] private PlayableDirector _secondPlayable;
         [SerializeField] private GameObject[] _secondItems;
         [SerializeField] private Button _secondOptionButton;
-
-        private void OnEnable()
-        {
-            _firstOptionButton.onClick.AddListener(FirstOptionButtonClicked);
-            _secondOptionButton.onClick.AddListener(SecondOptionButtonClicked);
-        }
-
+        
         private void OnDisable()
         {
+            _firstOptionButton.onClick.RemoveListener(FirstOptionButtonClicked);
+            _secondOptionButton.onClick.RemoveListener(SecondOptionButtonClicked);
+        }
+
+        public void Show()
+        {
             _firstOptionButton.onClick.AddListener(FirstOptionButtonClicked);
             _secondOptionButton.onClick.AddListener(SecondOptionButtonClicked);
+            gameObject.SetActive(true);
         }
 
         private void FirstOptionButtonClicked()
