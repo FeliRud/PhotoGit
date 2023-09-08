@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -20,7 +19,6 @@ namespace Photo
             _saveLoader = saveLoader;
             _sceneLoader = sceneLoader;
             _photoFrame = photoFrame;
-            
             _photoFrame.OnPlayerTakePhotoEvent += PlayerTakePhoto;
         }
 
