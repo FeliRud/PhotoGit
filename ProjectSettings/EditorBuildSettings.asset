@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Photo/Scenes/LevelMountains.unity
     guid: 9a1b56b135a023a4fb1c473188066ade
+  - enabled: 1
+    path: Assets/Photo/Scenes/The End.unity
+    guid: 00783c785b0be9c42b9f5203901c5c0b
   m_configObjects: {}

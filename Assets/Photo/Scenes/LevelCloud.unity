@@ -2942,6 +2942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445479790b3e4ea1a5ae27d3ec8481e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentLevelData: {fileID: 11400000, guid: a744efec8f684b94580e8005c8725541, type: 2}
   _loadingPage: {fileID: 1250535509}
   _nextLevelSceneID: 3
   _levelID: 1

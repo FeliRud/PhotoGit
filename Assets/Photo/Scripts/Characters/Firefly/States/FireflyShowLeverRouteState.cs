@@ -13,7 +13,6 @@ namespace Photo.Scripts.Characters.Firefly.States
         private const float DELAY = 2f;
         
         private int _currentValue;
-        private Lever _currentLamp;
         private float _leftTime;
         private Vector3 _nextPosition;
         private Vector3 _randomPosition;
@@ -28,7 +27,6 @@ namespace Photo.Scripts.Characters.Firefly.States
         {
             _currentValue = 0;
             _leftTime = 0;
-            _currentLamp = _leverPuzzles.Levers[_currentValue];
         }
 
         public void Update()
@@ -53,10 +51,9 @@ namespace Photo.Scripts.Characters.Firefly.States
 
             if (fireflyPosition == _nextPosition)
             {
-                _currentValue++;
-                if (_currentValue < _leverPuzzles.Levers.Count)
-                    _currentLamp = _leverPuzzles.Levers[_currentValue];
                 _leftTime = DELAY;
+                _currentValue++;
+                RandomPosition();
                 return;
             }
 
@@ -81,7 +78,7 @@ namespace Photo.Scripts.Characters.Firefly.States
             var randomX = Random.Range(-1f, 1f);
             var randomY = Random.Range(-1f, 1f);
 
-            _randomPosition = _currentLamp.transform.position + new Vector3(randomX, randomY, 0);
+            _randomPosition = _nextPosition + new Vector3(randomX, randomY, 0);
         }
 
         private void MoveToRandomPosition()

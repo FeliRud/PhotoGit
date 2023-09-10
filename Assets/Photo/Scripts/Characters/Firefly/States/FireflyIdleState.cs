@@ -18,10 +18,8 @@ namespace Photo.Scripts.Characters.Firefly.States
             _followTarget = followTarget;
         }
         
-        public void Enter()
-        {
+        public void Enter() => 
             RandomPosition();
-        }
 
         public void Update()
         {
@@ -32,13 +30,9 @@ namespace Photo.Scripts.Characters.Firefly.States
             if (direction.x != 0)
                 _firefly.localScale = direction.x > 0 ? new Vector2(1, 1)  : new Vector2(-1, 1);
             _firefly.position = Vector3.MoveTowards(_firefly.position, _targetPosition, SPEED * Time.deltaTime);
-
         }
 
-        public void Exit()
-        {
-            
-        }
+        public void Exit() {}
 
         private void RandomPosition()
         {

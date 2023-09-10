@@ -5,6 +5,7 @@ namespace Photo.End
 {
     public class EndCutscene : MonoBehaviour
     {
+        [SerializeField] private GameObject[] _firstObjects;
         [SerializeField] private EndWindow _endWindow;
         [SerializeField] private LoadingPage _loadingPage;
         
@@ -14,8 +15,12 @@ namespace Photo.End
         private void Construct(SceneLoader sceneLoader) => 
             _sceneLoader = sceneLoader;
 
-        public void ShowSelectOption() => 
+        public void ShowSelectOption()
+        {
+            foreach (var firstObject in _firstObjects) 
+                firstObject.SetActive(false);
             _endWindow.Show();
+        }
 
         public void LoadMenu()
         {

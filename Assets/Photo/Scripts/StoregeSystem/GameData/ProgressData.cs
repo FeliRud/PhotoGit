@@ -10,10 +10,8 @@ namespace Photo
         public int Level;
         public List<PuzzleData> Puzzles;
 
-        public ProgressData()
-        {
+        public ProgressData() => 
             Reset();
-        }
 
         public void Reset()
         {
@@ -22,20 +20,17 @@ namespace Photo
             Level = 0;
         }
 
-        public void PrehistoryComplete()
-        {
+        public void PrehistoryComplete() => 
             Prehistory = true;
-        }
-        
-        public void AddPuzzle(int id)
-        {
-            Puzzles.Add(new PuzzleData(id));
-        }
 
-        public bool PuzzleAvailable(int id)
-        {
-            return Puzzles.FirstOrDefault(x => x.ID == id) != null;
-        }
+        public void AddPuzzle(int id) => 
+            Puzzles.Add(new PuzzleData(id));
+
+        public bool PuzzleAvailable(int id) => 
+            Puzzles.FirstOrDefault(x => x.ID == id) != null;
+
+        public int GetLevel() => 
+            Level;
 
         public void LevelCompleted(int levelID)
         {
@@ -43,11 +38,6 @@ namespace Photo
                 return;
             
             Level++;
-        }
-
-        public int GetLevel()
-        {
-            return Level;
         }
     }
 }

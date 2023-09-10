@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -11,10 +12,8 @@ namespace Photo
         private SaveLoader _saveLoader;
 
         [Inject]
-        private void Construct(SaveLoader saveLoader)
-        {
+        private void Construct(SaveLoader saveLoader) => 
             _saveLoader = saveLoader;
-        }
 
         private void Start()
         {

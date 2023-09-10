@@ -12,7 +12,6 @@ namespace Photo.Scripts.Characters.Firefly.States
         private readonly LampPuzzles _lampsPuzzle;
         
         private int _currentValue;
-        private Lamp _currentLamp;
         private float _leftTime;
         private Vector3 _nextPosition;
         private Vector3 _randomPosition;
@@ -27,7 +26,6 @@ namespace Photo.Scripts.Characters.Firefly.States
         {
             _currentValue = 0;
             _leftTime = 0;
-            _currentLamp = _lampsPuzzle.Lamps[_currentValue];
         }
 
         public void Update()
@@ -45,28 +43,22 @@ namespace Photo.Scripts.Characters.Firefly.States
         public void Exit() => 
             _firefly.ItHelps = false;
 
-        private void MoveToPosition()
+        private void MoveToRandomPosition()
         {
-            Vector3 fireflyPosition = _firefly.transform.position;
-            float speed = Time.deltaTime * 7f;
+            _leftTime -= Time.deltaTime;
+            
+            if (_randomPosition == _firefly.transform.position)
+                RandomPosition();
 
-            if (fireflyPosition == _nextPosition)
-            {
-                _currentValue++;
-                if (_currentValue < _lampsPuzzle.Lamps.Count)
-                    _currentLamp = _lampsPuzzle.Lamps[_currentValue];
-                _leftTime = DELAY;
-                return;
-            }
-
-            _firefly.transform.position = Vector3.MoveTowards(fireflyPosition, _nextPosition, speed);
+            SetDirection(_randomPosition);
+            _firefly.transform.position = Vector3.MoveTowards(_firefly.transform.position, _randomPosition, 3 * Time.deltaTime);
         }
 
         private void GetNextPosition()
         {
             if (_currentValue >= _lampsPuzzle.Combination.Count)
             {
-                _firefly.SetState(_firefly.GetState<FireflyIdleState>());
+                _firefly.SetState(_firefly.GetState<FireflyFollowState>());
                 return;
             }
 
@@ -75,27 +67,36 @@ namespace Photo.Scripts.Characters.Firefly.States
             _nextPosition = new Vector3(nextLampPosition.x, nextLampPosition.y, 0);
         }
 
+        private void MoveToPosition()
+        {
+            Vector3 fireflyPosition = _firefly.transform.position;
+            float speed = Time.deltaTime * 7f;
+
+            if (fireflyPosition == _nextPosition)
+            {
+                _leftTime = DELAY;
+                _currentValue++;
+                RandomPosition();
+                return;
+            }
+
+            SetDirection(_nextPosition);
+            _firefly.transform.position = Vector3.MoveTowards(fireflyPosition, _nextPosition, speed);
+        }
+
         private void RandomPosition()
         {
             var randomX = Random.Range(-1f, 1f);
             var randomY = Random.Range(-1f, 1f);
 
-            _randomPosition = _currentLamp.transform.position + new Vector3(randomX, randomY, 0);
+            _randomPosition = _nextPosition + new Vector3(randomX, randomY, 0);
         }
 
-        private void MoveToRandomPosition()
+        private void SetDirection(Vector3 nextPosition)
         {
-            _leftTime -= Time.deltaTime;
-
-            Vector3 fireflyPosition = _firefly.transform.position;
-
-            if (_randomPosition == fireflyPosition)
-                RandomPosition();
-
-            Vector3 direction = (_randomPosition - fireflyPosition).normalized;
+            Vector3 direction = (nextPosition - _firefly.transform.position).normalized;
             if (direction.x != 0)
                 _firefly.transform.localScale = direction.x > 0 ? new Vector2(1, 1) : new Vector2(-1, 1);
-            _firefly.transform.position = Vector3.MoveTowards(fireflyPosition, _randomPosition, 3 * Time.deltaTime);
         }
     }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0173c9d3ce4861a027d06041347d73, type: 3}
-  m_Name: Puzzle5
+  m_Name: PuzzleForest
   m_EditorClassIdentifier: 
-  _id: 4
-  _sprite: {fileID: 21300000, guid: 4b8a9f696fab064469c1499e9a615590, type: 3}
+  _id: 1
+  _sprite: {fileID: 21300000, guid: b26016a655085e543bc9fe0c77b11c00, type: 3}

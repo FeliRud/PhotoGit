@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using Photo.Scripts.Services;
+using Photo.StaticData;
+using UnityEngine;
 using Zenject;
 
 namespace Photo
@@ -11,14 +14,17 @@ namespace Photo
         private Menu _menu;
         private PhotoAlbum _photoAlbum;
         private Settings _settings;
+        private IStaticDataService _staticDataService;
         private AudioValueChanger _audioValueChanger;
         private SaveLoader _saveLoader;
+
         private SceneLoader _sceneLoader;
 
         [Inject]
         private void Construct(Menu menu,
             PhotoAlbum photoAlbum,
             Settings settings,
+            IStaticDataService staticDataService,
             AudioValueChanger audioValueChanger,
             SaveLoader saveLoader,
             SceneLoader sceneLoader)
@@ -26,6 +32,7 @@ namespace Photo
             _menu = menu;
             _photoAlbum = photoAlbum;
             _settings = settings;
+            _staticDataService = staticDataService;
             _audioValueChanger = audioValueChanger;
             _saveLoader = saveLoader;
             _sceneLoader = sceneLoader;
@@ -66,9 +73,17 @@ namespace Photo
                 ? _saveLoader.Data.Progress.GetLevel() + 2
                 : 1;
 
-            if (nextLevel > 6)
-                nextLevel = 6;
-            
+            if (nextLevel >= 6)
+            {
+                LevelStaticData nextLevelData = GetNextNotPassedLevel(nextLevel);
+                nextLevelData = nextLevelData == null ? GetFirstNotPassedLevel() : nextLevelData;
+                nextLevel = nextLevelData != null ? nextLevelData.SceneID : 0;
+                if (nextLevel == 0)
+                {
+                    nextLevel = 1;
+                    _saveLoader.Data.Progress.Reset();
+                }
+            }            
             _sceneLoader.LoadSceneToID(nextLevel); 
         }
 
@@ -120,5 +135,14 @@ namespace Photo
             _settings.Close();
             _menu.Show();
         }
+        
+        private LevelStaticData GetNextNotPassedLevel(int nextLevel) => 
+            _staticDataService.GetLevels()
+                .Where(level => level.LevelID > nextLevel)
+                .FirstOrDefault(level => !_saveLoader.Data.Progress.PuzzleAvailable(level.PuzzleInfo.ID));
+
+        private LevelStaticData GetFirstNotPassedLevel() =>
+            _staticDataService.GetLevels()
+                .FirstOrDefault(x => !_saveLoader.Data.Progress.PuzzleAvailable(x.PuzzleInfo.ID));
     }
 }
