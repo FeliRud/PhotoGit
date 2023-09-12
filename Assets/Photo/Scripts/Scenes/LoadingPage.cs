@@ -13,22 +13,16 @@ namespace Photo
 
         private void OnEnable()
         {
-            foreach (var textHint in _textHints)
-            {
+            foreach (var textHint in _textHints) 
                 textHint.gameObject.SetActive(false);
-            }
-            
+
             _textHints[Random.Range(0, _textHints.Count)].gameObject.SetActive(true);
         }
 
-        private void Update()
-        {
-            _loadingImage.rectTransform.Rotate(0f,0f, -Time.deltaTime * 10); 
-        }
+        private void Update() => 
+            _loadingImage.rectTransform.Rotate(0f,0f, -Time.deltaTime * 10);
 
-        public void Show()
-        {
+        public void Show() => 
             gameObject.SetActive(true);
-        }
     }
 }
