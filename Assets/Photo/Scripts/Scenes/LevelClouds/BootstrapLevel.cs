@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Photo.UI;
+using UnityEngine;
 using Zenject;
 
 namespace Photo
 {
-    public class BootstrapLevelClouds : MonoInstaller
+    public class BootstrapLevel : MonoInstaller
     {
+        [SerializeField] private Gears _gears;
         [SerializeField] private Player _player;
         [SerializeField] private SpawnPoint _spawnPoint;
         [SerializeField] private PlayerCharacteristics _characteristics;
@@ -12,11 +14,18 @@ namespace Photo
         
         public override void InstallBindings()
         {
-            Container.Bind<PhotoFrame>().FromInstance(_photoFrame).AsSingle();
+            BindGears();
+            BindPhotoFrame();
             BindPlayerCharacteristics();
             BindSpawnPoint();
             BindPlayer();
         }
+
+        private void BindGears() => 
+            Container.Bind<Gears>().FromInstance(_gears).AsSingle();
+
+        private void BindPhotoFrame() => 
+            Container.Bind<PhotoFrame>().FromInstance(_photoFrame).AsSingle();
 
         private void BindSpawnPoint() =>
             Container.Bind<SpawnPoint>().FromInstance(_spawnPoint).AsSingle();
