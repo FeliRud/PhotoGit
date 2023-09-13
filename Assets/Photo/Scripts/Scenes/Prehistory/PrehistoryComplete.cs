@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Photo
+namespace Photo.Scripts.Scenes.Prehistory
 {
     public class PrehistoryComplete : MonoBehaviour
     {
