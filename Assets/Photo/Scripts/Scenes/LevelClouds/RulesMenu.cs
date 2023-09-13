@@ -14,6 +14,7 @@ namespace Photo
         [SerializeField] private List<RulesPanel> _rulesPanels;
         [SerializeField] private TextMeshProUGUI _textContine;
 
+        private int _currentRulesIndex;
         private RulesPanel _currentPanel;
         private Player _player;
 
@@ -25,15 +26,14 @@ namespace Photo
 
         public void Show()
         {
-            foreach (var rulesPanel in _rulesPanels)
-            {
+            foreach (var rulesPanel in _rulesPanels) 
                 rulesPanel.CloseFast();
-            }
-            
+
             if (_player != null)
                 _player.DisablePlayerInput();
             _textContine.DOColor(Color.white, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
-            _currentPanel = _rulesPanels[0];
+            _currentRulesIndex = 0;
+            _currentPanel = _rulesPanels[_currentRulesIndex];
             _currentPanel.Show();
             gameObject.SetActive(true);
         }
@@ -55,7 +55,8 @@ namespace Photo
             }
             
             _currentPanel.Close();
-            _currentPanel = _rulesPanels[_currentPanel.ID + 1];
+            _currentRulesIndex++;
+            _currentPanel = _rulesPanels[_currentRulesIndex];
             _currentPanel.Show();
         }
     }

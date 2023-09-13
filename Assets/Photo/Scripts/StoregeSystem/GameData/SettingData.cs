@@ -3,23 +3,16 @@
     [System.Serializable]
     public class SettingData
     {
-        public bool RulesIsCompleted;
+        public RulesData RulesIsCompleted;
         public float SoundValue;
 
         public SettingData()
         {
-            RulesIsCompleted = false;
+            RulesIsCompleted = new RulesData();
             SoundValue = 1f;
         }
-
-        public void RulesCompleted()
-        {
-            RulesIsCompleted = true;
-        }
         
-        public void SoundValueChanged(float value)
-        {
+        public void SoundValueChanged(float value) => 
             SoundValue = value;
-        }
     }
 }
