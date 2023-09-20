@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f702305137034009a143e004099c8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingPage: {fileID: 3580499580702290973, guid: 20cf9f8af40872145a3885e325dc39df, type: 3}
+  _menuMusic: {fileID: 8300000, guid: a56a272d80ba49548be163850cf9b5b1, type: 3}
+  _historyMusic: {fileID: 8300000, guid: ba4ab03ad2a87aa4f964d2966006ca1f, type: 3}
+  _levelMusic: {fileID: 8300000, guid: 56662b4953e346b46942756810592951, type: 3}

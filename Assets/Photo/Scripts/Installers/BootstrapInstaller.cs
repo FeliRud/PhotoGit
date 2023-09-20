@@ -1,5 +1,4 @@
-﻿using Photo.Scripts.Services;
-using Photo.StaticData;
+﻿using Photo.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +6,7 @@ namespace Photo
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        [SerializeField] private AudioValueChanger _audioValueChanger;
+        [SerializeField] private AudioChanger _audioChanger;
         [SerializeField] private SaveLoader _saveLoader;
         [SerializeField] private SceneLoader _sceneLoader;
         
@@ -15,8 +14,8 @@ namespace Photo
         {
             BindStaticDataService();
             BindSaveLoader();
-            BindSceneLoader();
             BindAudio();
+            BindSceneLoader();
         }
 
         private void BindStaticDataService()
@@ -28,9 +27,9 @@ namespace Photo
 
         private void BindAudio()
         {
-            AudioValueChanger audioValueChanger =
-                Container.InstantiatePrefabForComponent<AudioValueChanger>(_audioValueChanger);
-            Container.Bind<AudioValueChanger>().FromInstance(audioValueChanger).AsSingle();
+            AudioChanger audioValueChanger =
+                Container.InstantiatePrefabForComponent<AudioChanger>(_audioChanger);
+            Container.Bind<AudioChanger>().FromInstance(audioValueChanger).AsSingle();
             DontDestroyOnLoad(audioValueChanger);
         }
 

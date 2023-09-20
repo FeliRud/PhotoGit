@@ -15,7 +15,7 @@ namespace Photo
         private PhotoAlbum _photoAlbum;
         private Settings _settings;
         private IStaticDataService _staticDataService;
-        private AudioValueChanger _audioValueChanger;
+        private AudioChanger _audioChanger;
         private SaveLoader _saveLoader;
 
         private SceneLoader _sceneLoader;
@@ -25,7 +25,7 @@ namespace Photo
             PhotoAlbum photoAlbum,
             Settings settings,
             IStaticDataService staticDataService,
-            AudioValueChanger audioValueChanger,
+            AudioChanger audioChanger,
             SaveLoader saveLoader,
             SceneLoader sceneLoader)
         {
@@ -33,7 +33,7 @@ namespace Photo
             _photoAlbum = photoAlbum;
             _settings = settings;
             _staticDataService = staticDataService;
-            _audioValueChanger = audioValueChanger;
+            _audioChanger = audioChanger;
             _saveLoader = saveLoader;
             _sceneLoader = sceneLoader;
 
@@ -63,7 +63,7 @@ namespace Photo
         {
             var soundValue = _saveLoader.Data.Setting.SoundValue;
             _settings.LoadSoundValue(soundValue);
-            _audioValueChanger.ChangeMusicValue(soundValue);
+            _audioChanger.ChangeMusicValue(soundValue);
         }
 
         private void PlayButtonClicked()
@@ -116,7 +116,7 @@ namespace Photo
 
         private void VolumeSliderValueChange(float value)
         {
-            _audioValueChanger.ChangeMusicValue(value);
+            _audioChanger.ChangeMusicValue(value);
             _saveLoader.Data.Setting.SoundValueChanged(value);
         }
 

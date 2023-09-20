@@ -15,17 +15,17 @@ namespace Photo
         [SerializeField] private Button _menuButton;
 
         private Player _player;
-        private AudioValueChanger _audioValueChanger;
+        private AudioChanger _audioChanger;
         private SaveLoader _saveLoader;
         private SceneLoader _sceneLoader;
         private PauseInput _pauseInput;
 
         [Inject]
-        private void Construct(Player player, AudioValueChanger audioValueChanger, SaveLoader saveLoader,
+        private void Construct(Player player, AudioChanger audioChanger, SaveLoader saveLoader,
             SceneLoader sceneLoader)
         {
             _player = player;
-            _audioValueChanger = audioValueChanger;
+            _audioChanger = audioChanger;
             _saveLoader = saveLoader;
             _sceneLoader = sceneLoader;
 
@@ -110,7 +110,7 @@ namespace Photo
         }
 
         private void OnVolumeSliderValueChange(float value) =>
-            _audioValueChanger.ChangeMusicValue(value);
+            _audioChanger.ChangeMusicValue(value);
 
         private void OnSoundButtonClicked() =>
             _settingsPanel.OnOffMusic();
